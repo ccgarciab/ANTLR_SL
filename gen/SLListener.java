@@ -347,6 +347,116 @@ public interface SLListener extends ParseTreeListener {
 	 */
 	void exitExpr(SLParser.ExprContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SLParser#disyuncion}.
+	 * @param ctx the parse tree
+	 */
+	void enterDisyuncion(SLParser.DisyuncionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#disyuncion}.
+	 * @param ctx the parse tree
+	 */
+	void exitDisyuncion(SLParser.DisyuncionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#conjuncion}.
+	 * @param ctx the parse tree
+	 */
+	void enterConjuncion(SLParser.ConjuncionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#conjuncion}.
+	 * @param ctx the parse tree
+	 */
+	void exitConjuncion(SLParser.ConjuncionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#negacion}.
+	 * @param ctx the parse tree
+	 */
+	void enterNegacion(SLParser.NegacionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#negacion}.
+	 * @param ctx the parse tree
+	 */
+	void exitNegacion(SLParser.NegacionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#comparacion}.
+	 * @param ctx the parse tree
+	 */
+	void enterComparacion(SLParser.ComparacionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#comparacion}.
+	 * @param ctx the parse tree
+	 */
+	void exitComparacion(SLParser.ComparacionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#termino}.
+	 * @param ctx the parse tree
+	 */
+	void enterTermino(SLParser.TerminoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#termino}.
+	 * @param ctx the parse tree
+	 */
+	void exitTermino(SLParser.TerminoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterFactor(SLParser.FactorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitFactor(SLParser.FactorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#expr_signo}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpr_signo(SLParser.Expr_signoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#expr_signo}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpr_signo(SLParser.Expr_signoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#potencia}.
+	 * @param ctx the parse tree
+	 */
+	void enterPotencia(SLParser.PotenciaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#potencia}.
+	 * @param ctx the parse tree
+	 */
+	void exitPotencia(SLParser.PotenciaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#acceso}.
+	 * @param ctx the parse tree
+	 */
+	void enterAcceso(SLParser.AccesoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#acceso}.
+	 * @param ctx the parse tree
+	 */
+	void exitAcceso(SLParser.AccesoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#primario}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimario(SLParser.PrimarioContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#primario}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimario(SLParser.PrimarioContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#argumentos}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgumentos(SLParser.ArgumentosContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#argumentos}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgumentos(SLParser.ArgumentosContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SLParser#literal_compuesto}.
 	 * @param ctx the parse tree
 	 */
@@ -356,14 +466,4 @@ public interface SLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLiteral_compuesto(SLParser.Literal_compuestoContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SLParser#llamada}.
-	 * @param ctx the parse tree
-	 */
-	void enterLlamada(SLParser.LlamadaContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SLParser#llamada}.
-	 * @param ctx the parse tree
-	 */
-	void exitLlamada(SLParser.LlamadaContext ctx);
 }

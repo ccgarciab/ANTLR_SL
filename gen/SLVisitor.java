@@ -214,15 +214,75 @@ public interface SLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(SLParser.ExprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SLParser#disyuncion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDisyuncion(SLParser.DisyuncionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#conjuncion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConjuncion(SLParser.ConjuncionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#negacion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNegacion(SLParser.NegacionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#comparacion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComparacion(SLParser.ComparacionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#termino}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTermino(SLParser.TerminoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactor(SLParser.FactorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#expr_signo}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpr_signo(SLParser.Expr_signoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#potencia}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPotencia(SLParser.PotenciaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#acceso}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAcceso(SLParser.AccesoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#primario}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimario(SLParser.PrimarioContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#argumentos}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArgumentos(SLParser.ArgumentosContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SLParser#literal_compuesto}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLiteral_compuesto(SLParser.Literal_compuestoContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SLParser#llamada}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLlamada(SLParser.LlamadaContext ctx);
 }
