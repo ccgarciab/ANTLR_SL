@@ -285,4 +285,46 @@ public interface SLVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLiteral_compuesto(SLParser.Literal_compuestoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#procedimiento}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcedimiento(SLParser.ProcedimientoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#parametros}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParametros(SLParser.ParametrosContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#lista_parametros}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLista_parametros(SLParser.Lista_parametrosContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#encabezado}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEncabezado(SLParser.EncabezadoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#retorno}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRetorno(SLParser.RetornoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#subrutina}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubrutina(SLParser.SubrutinaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#funcion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncion(SLParser.FuncionContext ctx);
 }

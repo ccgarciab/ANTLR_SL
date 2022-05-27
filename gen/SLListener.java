@@ -466,4 +466,74 @@ public interface SLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLiteral_compuesto(SLParser.Literal_compuestoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#procedimiento}.
+	 * @param ctx the parse tree
+	 */
+	void enterProcedimiento(SLParser.ProcedimientoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#procedimiento}.
+	 * @param ctx the parse tree
+	 */
+	void exitProcedimiento(SLParser.ProcedimientoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#parametros}.
+	 * @param ctx the parse tree
+	 */
+	void enterParametros(SLParser.ParametrosContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#parametros}.
+	 * @param ctx the parse tree
+	 */
+	void exitParametros(SLParser.ParametrosContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#lista_parametros}.
+	 * @param ctx the parse tree
+	 */
+	void enterLista_parametros(SLParser.Lista_parametrosContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#lista_parametros}.
+	 * @param ctx the parse tree
+	 */
+	void exitLista_parametros(SLParser.Lista_parametrosContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#encabezado}.
+	 * @param ctx the parse tree
+	 */
+	void enterEncabezado(SLParser.EncabezadoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#encabezado}.
+	 * @param ctx the parse tree
+	 */
+	void exitEncabezado(SLParser.EncabezadoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#retorno}.
+	 * @param ctx the parse tree
+	 */
+	void enterRetorno(SLParser.RetornoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#retorno}.
+	 * @param ctx the parse tree
+	 */
+	void exitRetorno(SLParser.RetornoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#subrutina}.
+	 * @param ctx the parse tree
+	 */
+	void enterSubrutina(SLParser.SubrutinaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#subrutina}.
+	 * @param ctx the parse tree
+	 */
+	void exitSubrutina(SLParser.SubrutinaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#funcion}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncion(SLParser.FuncionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#funcion}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncion(SLParser.FuncionContext ctx);
 }

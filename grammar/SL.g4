@@ -1,7 +1,7 @@
 grammar SL;
 
 // REGLAS SINTACTICAS
-inicial: programa EOF; // TODO: implementar regla subrutina y reemplazar por "inicial: programa subrutina*;"
+inicial: programa procedimiento* EOF;
 programa: nombre_programa? programa_principal;
 nombre_programa: 'programa' IDENTIFICADOR;
 programa_principal: declaraciones cuerpo_principal;
@@ -19,7 +19,7 @@ decl_const: IDENTIFICADOR '=' (literal | IDENTIFICADOR);
 tipo: tipo_escalar | tipo_vector | tipo_matriz;
 tipo_escalar: 'numerico' | 'logico' | 'cadena' | tipo_registro;
 tipo_registro: 'registro' '{' decl_tipo* '}';
-tipo_vector: 'vector' '[' LITERAL_ENTERO | IDENTIFICADOR | '*' ']' tipo_escalar;
+tipo_vector: 'vector' '[' (LITERAL_ENTERO | IDENTIFICADOR | '*') ']' tipo_escalar;
 tipo_matriz: 'matriz' '[' (dimensiones_variables | dimensiones_fijas) ']' tipo_escalar;
 dimensiones_variables: '*' (',' '*')* (',' dimension)*;
 dimensiones_fijas: dimension (',' dimension)*;
@@ -40,18 +40,25 @@ conjuncion: negacion ('and' negacion)*;
 negacion: 'not' negacion | comparacion;
 comparacion: termino (OP_COMPARACION termino)*;
 termino: factor (OP_SUMA factor)*;
-factor: expr_signo (OP_PRODUCTO expr_signo)*;
+factor: expr_signo (('*' | '/' | '%') expr_signo)*;
 expr_signo: OP_SUMA expr_signo | potencia;
 potencia: acceso ('^' acceso)*;
 acceso: primario ('(' argumentos? ')' | '[' expr ']' | '.' IDENTIFICADOR)*;
 primario: literal | IDENTIFICADOR | '(' expr ')';
 argumentos: expr (',' expr)*;
 literal_compuesto: '{' expr (',' expr)* '}';
+procedimiento: subrutina | funcion;
+parametros: 'ref'? IDENTIFICADOR (',' IDENTIFICADOR)* ':' tipo;
+lista_parametros: parametros (';' parametros)*;
+encabezado: 'subrutina' IDENTIFICADOR '(' lista_parametros? ')';
+retorno: 'retorna' expr;
+subrutina: encabezado declaraciones 'inicio' sentencia* 'fin';
+funcion: encabezado 'retorna' tipo declaraciones 'inicio' sentencia* retorno 'fin';
+
 
 IDENTIFICADOR: [_A-Za-z][_A-Za-z0-9]*;
 OP_COMPARACION: '==' | '<>' | '<' | '<=' | '>' | '>=';
 OP_SUMA: '+' | '-';
-OP_PRODUCTO: '*' | '/' | '%';
 LITERAL_ENTERO: [0-9]+;
 fragment ESCAPE_COMILLA : '\\"' | '\\\'';
 fragment CONTENIDO_CADENA: ( ESCAPE_COMILLA | ~('\n'|'\r') )*?;
