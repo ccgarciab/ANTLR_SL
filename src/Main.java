@@ -7,5 +7,8 @@ public class Main {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         SLParser parser = new SLParser(tokens);
         ParseTree tree = parser.expr();
+
+        SLVisitorImpl loader = new SLVisitorImpl();
+        loader.visit(tree);
     }
 }
