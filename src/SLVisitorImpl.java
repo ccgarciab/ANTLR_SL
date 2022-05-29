@@ -12,6 +12,25 @@ public class SLVisitorImpl<T> extends SLBaseVisitor<T> {
     }
 
     @Override public T visitAcceso(SLParser.AccesoContext ctx){
+        visitPrimario(ctx.primario());
+        if(ctx.argumentos() != null){
+            int i = 0;
+            while (ctx.argumentos(i)!= null){
+                visitArgumentos(ctx.argumentos(i));
+                i ++;
+            }
+        } else if (ctx.expr()!= null) {
+            int i = 0;
+            while (ctx.expr(i)!= null){
+                visitExpr(ctx.expr(i));
+                i ++;
+            }
+        }else if (ctx.IDENTIFICADOR() != null){
+            int i = 0;
+            while (ctx.IDENTIFICADOR(i)!=  null) {
+                visitIdentificador(ctx.IDENTIFICADOR(i));
+            }
+        }
         return null;
     }
 
