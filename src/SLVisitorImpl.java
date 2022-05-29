@@ -7,8 +7,28 @@ public class SLVisitorImpl<T> extends SLBaseVisitor<T> {
     HashMap<String,Object> values = new HashMap<>();
 
     @Override public T visitPotencia(SLParser.PotenciaContext ctx) {
-
-        return visitChildren(ctx);
+        Double base = (Double) visitAcceso(ctx.acceso(0));
+        Double potencia = 1.0;
+        int i = 1;
+        while (ctx.acceso(i)!=null){
+            potencia *= (Float) visitAcceso(ctx.acceso(i));
+        }
+        Double result = 1.0;
+        Double cero = 0.0;
+        if(base > 0 && potencia==0){
+            return (T)result;
+        }
+        else if(base == 0 && potencia>=1){
+            return (T) cero;
+        }
+        else{
+            i = 1;
+            while (i<potencia){
+                result *= base;
+                i++;
+            }
+            return (T) result;
+        }
     }
 
     @Override public T visitAcceso(SLParser.AccesoContext ctx){
@@ -50,15 +70,15 @@ public class SLVisitorImpl<T> extends SLBaseVisitor<T> {
 
     public T visitIdentificador(TerminalNode ctx){
         String name = ctx.getText();
-        Object value;
-        if ((value = values.get(name)) == null) {
+        T value;
+        if ((value = (T)values.get(name)) == null) {
             int line = ctx.getSymbol().getLine();
             int col = ctx.getSymbol().getCharPositionInLine()+1;
             System.err.printf("<%d:%d> Error semantico, la variable con nombre \"" + name + "\" no fue declarada.\n", line, col);
             System.exit(-1);
             return null;
         } else {
-            return (T) value;
+            return value;
         }
     }
 }
