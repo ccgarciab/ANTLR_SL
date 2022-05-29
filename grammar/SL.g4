@@ -38,27 +38,31 @@ expr: disyuncion;
 disyuncion: conjuncion ('or' conjuncion)*;
 conjuncion: negacion ('and' negacion)*;
 negacion: 'not' negacion | comparacion;
+//Cata
 comparacion: termino (OP_COMPARACION termino)*;
 termino: factor (OP_SUMA factor)*;
 factor: expr_signo (('*' | '/' | '%') expr_signo)*;
 expr_signo: OP_SUMA expr_signo | potencia;
+//Santiago
 potencia: acceso ('^' acceso)*;
 acceso: primario ('(' argumentos? ')' | '[' expr ']' | '.' IDENTIFICADOR)*;
 primario: literal | IDENTIFICADOR | '(' expr ')';
 argumentos: expr (',' expr)*;
+//Cristian
 literal_compuesto: '{' expr (',' expr)* '}';
 procedimiento: subrutina | funcion;
 parametros: 'ref'? IDENTIFICADOR (',' IDENTIFICADOR)* ':' tipo;
 lista_parametros: parametros (';' parametros)*;
+//Diego
 encabezado: 'subrutina' IDENTIFICADOR '(' lista_parametros? ')';
 retorno: 'retorna' expr;
 subrutina: encabezado declaraciones 'inicio' sentencia* 'fin';
 funcion: encabezado 'retorna' tipo declaraciones 'inicio' sentencia* retorno 'fin';
 
-
 IDENTIFICADOR: [_A-Za-z][_A-Za-z0-9]*;
 OP_COMPARACION: '==' | '<>' | '<' | '<=' | '>' | '>=';
 OP_SUMA: '+' | '-';
+//TODO cambiar por literal numero
 LITERAL_ENTERO: [0-9]+;
 fragment ESCAPE_COMILLA : '\\"' | '\\\'';
 fragment CONTENIDO_CADENA: ( ESCAPE_COMILLA | ~('\n'|'\r') )*?;
