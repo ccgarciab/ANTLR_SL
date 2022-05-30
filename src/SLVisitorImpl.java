@@ -12,6 +12,7 @@ public class SLVisitorImpl<T> extends SLBaseVisitor<T> {
         int i = 1;
         while (ctx.acceso(i)!=null){
             potencia *= (Float) visitAcceso(ctx.acceso(i));
+            i++;
         }
         Double result = 1.0;
         Double cero = 0.0;
@@ -49,6 +50,7 @@ public class SLVisitorImpl<T> extends SLBaseVisitor<T> {
             int i = 0;
             while (ctx.IDENTIFICADOR(i)!=  null) {
                 visitIdentificador(ctx.IDENTIFICADOR(i));
+                i++;
             }
         }
         return null;
@@ -69,6 +71,7 @@ public class SLVisitorImpl<T> extends SLBaseVisitor<T> {
         int i = 1;
         while (ctx.expr(i)!=null){
             visitExpr(ctx.expr(i));
+            i++;
         }
         return null;
     }
