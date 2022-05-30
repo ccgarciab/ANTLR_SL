@@ -65,6 +65,11 @@ public class SLVisitorImpl<T> extends SLBaseVisitor<T> {
     }
 
     @Override public T visitArgumentos(SLParser.ArgumentosContext ctx){
+        visitExpr(ctx.expr(0));
+        int i = 1;
+        while (ctx.expr(i)!=null){
+            visitExpr(ctx.expr(i));
+        }
         return null;
     }
 
