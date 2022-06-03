@@ -328,4 +328,10 @@ public interface SLVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFuncion(SLParser.FuncionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#sentencias}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSentencias(SLParser.SentenciasContext ctx);
 }

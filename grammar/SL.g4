@@ -9,7 +9,7 @@ declaraciones: (tipos | vars | consts)*;
 tipos: tipos_kw decl_tipo*;
 vars: var_kw decl_vars*;
 consts: const_kw decl_const*;
-cuerpo_principal: 'inicio' sentencia* 'fin';
+cuerpo_principal: 'inicio' sentencias 'fin';
 var_kw: 'var' | 'variables';
 const_kw: 'const' | 'constantes';
 tipos_kw: 'tipos';
@@ -56,8 +56,9 @@ lista_parametros: parametros (';' parametros)*;
 //Diego
 encabezado: 'subrutina' IDENTIFICADOR '(' lista_parametros? ')';
 retorno: 'retorna' expr;
-subrutina: encabezado declaraciones 'inicio' sentencia* 'fin';
-funcion: encabezado 'retorna' tipo declaraciones 'inicio' sentencia* retorno 'fin';
+subrutina: encabezado declaraciones 'inicio' sentencias 'fin';
+funcion: encabezado 'retorna' tipo declaraciones 'inicio' sentencias retorno 'fin';
+sentencias: sentencia*;
 
 OP_COMPARACION: '==' | '<>' | '<' | '<=' | '>' | '>=';
 OP_SUMA: '+' | '-';
