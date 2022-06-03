@@ -13,9 +13,9 @@ public class FuncionDefinida implements Funcion {
     Map<String, Valor> referenciasLocales;
     Map<String, Valor> referenciasGlobales;
     Map<String, Funcion> funciones;
-    SLParser.ProcedimientoContext contexto;
+    SLParser.SentenciasContext contexto;
 
-    public FuncionDefinida(List<Tipo> params, Map<String, Valor> refsLocales, Map<String, Valor> refsGlobales, Map<String, Funcion> funcs, SLParser.ProcedimientoContext ctx){
+    public FuncionDefinida(List<Tipo> params, Map<String, Valor> refsLocales, Map<String, Valor> refsGlobales, Map<String, Funcion> funcs, SLParser.SentenciasContext ctx){
         this.parametros = params;
         this.referenciasLocales = refsLocales;
         this.referenciasGlobales = refsGlobales;

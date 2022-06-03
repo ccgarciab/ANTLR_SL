@@ -389,4 +389,11 @@ public class SLBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements SLV
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitFuncion(SLParser.FuncionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitSentencias(SLParser.SentenciasContext ctx) { return visitChildren(ctx); }
 }
