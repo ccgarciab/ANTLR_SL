@@ -55,7 +55,7 @@ parametros: 'ref'? IDENTIFICADOR (',' IDENTIFICADOR)* ':' tipo;
 lista_parametros: parametros (';' parametros)*;
 //Diego
 encabezado: 'subrutina' IDENTIFICADOR '(' lista_parametros? ')';
-retorno: 'retorna' expr;
+retorno: RETORNA expr;
 subrutina: encabezado declaraciones 'inicio' sentencia* 'fin';
 funcion: encabezado 'retorna' tipo declaraciones 'inicio' sentencia* retorno 'fin';
 
@@ -71,3 +71,4 @@ IDENTIFICADOR: [_A-Za-z][_A-Za-z0-9]*;
 COMENTARIO_MULTILINEA: '/*' .*? '*/' -> skip;
 COMENTARIO_LINEA: '//' .*? [\n\r] -> skip;
 ESPACIO: [ \t\r\n]+ -> skip;
+RETORNA: 'retorna';
