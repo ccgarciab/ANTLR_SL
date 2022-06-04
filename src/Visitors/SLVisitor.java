@@ -1,5 +1,4 @@
-// Generated from C:/Users/z004hkjh/IdeaProjects/SL/grammar\SL.g4 by ANTLR 4.10.1
-package Gen;
+package Visitors;// Generated from /home/santiago/IdeaProjects/UNAL/ANTLR_SL/grammar/SL.g4 by ANTLR 4.10.1
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**

@@ -1,3 +1,5 @@
+package Visitors;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,6 +81,24 @@ public class SLVisitorImpl<T> extends SLBaseVisitor<T> {
         return (T) argumentos;
     }
 
+    @Override public T visitRetorno(SLParser.RetornoContext ctx){
+        if (ctx.RETORNA()!= null){
+            return visitExpr(ctx.expr());
+        }else{
+            return null;
+        }
+    }
+
+     @Override public T visitExpr_signo(SLParser.Expr_signoContext ctx) {
+
+        if (ctx.OP_SUMA().getText().equals("+")){
+            return visitExpr_signo(ctx.expr_signo());
+        }else{
+            Double value = (Double) visitExpr_signo(ctx.expr_signo());
+            value = -value;
+            return (T)value;
+        }
+    }
     public T visitIdentificador(TerminalNode ctx){
         String name = ctx.getText();
         T value;
@@ -92,4 +112,5 @@ public class SLVisitorImpl<T> extends SLBaseVisitor<T> {
             return value;
         }
     }
+
 }
