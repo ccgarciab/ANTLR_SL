@@ -69,12 +69,16 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         }
         return null;
     }
-    @Override
-    public Valor visitSi(SLParser.SiContext ctx) {
+    @Override public T visitSi(SLParser.SiContext ctx) {
         if ((Boolean) visitCondicion(ctx.condicion()).valor) {
-            visitSentencia(ctx.sentencia(0));
+            for (SLParser.SentenciaContext sentencia : ctx.sentencia()) {
+                visitSentencias(sentencia);
+            }
+        } else {
+            for (SLParser.SentenciaContext sentencia : ctx.sentencia()) {
+                visitSentencias(sentencia);
+            }
         }
-        //ToDo Arreglar Gramatica
         return null;
     }
 
@@ -114,6 +118,13 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
 
     @Override public Valor visitCondicion(SLParser.CondicionContext ctx) {
         return visitExpr(ctx.expr());
+    }
+    
+    @Override public T visitSentencias(SLParser.SentenciasContext ctx) { 
+        for (SLParser.SentenciaContext sentencia : ctx.sentencia()) {
+            visitSentencia(sentencia);
+        }
+        return null;
     }
     
 }
