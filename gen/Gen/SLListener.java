@@ -178,16 +178,6 @@ public interface SLListener extends ParseTreeListener {
 	 */
 	void exitTipo_escalar(SLParser.Tipo_escalarContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SLParser#tipo_registro}.
-	 * @param ctx the parse tree
-	 */
-	void enterTipo_registro(SLParser.Tipo_registroContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SLParser#tipo_registro}.
-	 * @param ctx the parse tree
-	 */
-	void exitTipo_registro(SLParser.Tipo_registroContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link SLParser#tipo_vector}.
 	 * @param ctx the parse tree
 	 */
