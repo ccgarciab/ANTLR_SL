@@ -228,6 +228,16 @@ public interface SLListener extends ParseTreeListener {
 	 */
 	void exitDimension(SLParser.DimensionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SLParser#dimension_variable}.
+	 * @param ctx the parse tree
+	 */
+	void enterDimension_variable(SLParser.Dimension_variableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#dimension_variable}.
+	 * @param ctx the parse tree
+	 */
+	void exitDimension_variable(SLParser.Dimension_variableContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SLParser#literal}.
 	 * @param ctx the parse tree
 	 */

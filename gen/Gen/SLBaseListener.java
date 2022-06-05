@@ -280,6 +280,18 @@ public class SLBaseListener implements SLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDimension_variable(SLParser.Dimension_variableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDimension_variable(SLParser.Dimension_variableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLiteral(SLParser.LiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
