@@ -7,30 +7,24 @@ import Valor.Valor;
 import java.util.List;
 import java.util.Map;
 
-public class FuncionDefinida implements Funcion {
+public class SubrutinaDefinida implements Funcion{
 
-    Tipo tipoRetorno;
     List<Tipo> parametros;
     Map<String, Valor> referenciasLocales;
     Map<String, Valor> referenciasGlobales;
     Map<String, Funcion> funciones;
     SLParser.SentenciasContext sentencias;
-    SLParser.RetornoContext retorno;
 
-    public FuncionDefinida(Tipo tipoRetorno,
-                           List<Tipo> params,
-                           Map<String, Valor> refsLocales,
-                           Map<String, Valor> refsGlobales,
-                           Map<String, Funcion> funcs,
-                           SLParser.SentenciasContext sentencias,
-                           SLParser.RetornoContext retorno){
-        this.tipoRetorno = tipoRetorno;
+    public SubrutinaDefinida(List<Tipo> params,
+                             Map<String, Valor> refsLocales,
+                             Map<String, Valor> refsGlobales,
+                             Map<String, Funcion> funcs,
+                             SLParser.SentenciasContext sentencias){
         this.parametros = params;
         this.referenciasLocales = refsLocales;
         this.referenciasGlobales = refsGlobales;
         this.funciones = funcs;
         this.sentencias = sentencias;
-        this.retorno = retorno;
     }
 
     @Override
