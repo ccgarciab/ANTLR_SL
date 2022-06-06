@@ -1,5 +1,7 @@
 package Tipo;
 
+import Valor.Valor;
+
 import java.util.List;
 
 public class TipoRegistro implements Tipo{
@@ -32,5 +34,10 @@ public class TipoRegistro implements Tipo{
         }
 
         return true;
+    }
+
+    public Valor valorPorDefecto(boolean constante){
+
+        return new Valor(this, constante, null);
     }
 }
