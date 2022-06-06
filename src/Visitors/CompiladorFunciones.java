@@ -52,6 +52,7 @@ public class CompiladorFunciones extends SLBaseVisitor<Map<String, Funcion>>{
     public void registrarFuncion(SLParser.FuncionContext ctx, Map<String, Tipo> tiposLocales, Map<String, Valor> referenciasLocales) {
 
         List<Tipo> listaTiposParams = new ArrayList<>();
+        List<String> nombresParams = new ArrayList<>();
         Encabezado encabezado = this.visitarEncabezado(ctx.encabezado(), tiposLocales, referenciasLocales);
         for(Params params:  encabezado.listaParams){
             Tipo tipoParams = params.tipo;
@@ -59,17 +60,19 @@ public class CompiladorFunciones extends SLBaseVisitor<Map<String, Funcion>>{
                 Valor valor = new Valor(tipoParams, false, tipoParams.valorPorDefecto(false));
                 referenciasLocales.put(nombreParam, valor);
                 listaTiposParams.add(tipoParams);
+                nombresParams.add(nombreParam);
             }
         }
         Tipo tipoRetorno = this.procesarTipo(ctx.tipo(),tiposLocales, referenciasLocales);
         this.procesarDeclaraciones(ctx.declaraciones(), referenciasLocales);
-        FuncionDefinida funcion = new FuncionDefinida(tipoRetorno, listaTiposParams, referenciasLocales, this.referenciasGlobales, this.funciones, ctx.sentencias(), ctx.retorno());
+        FuncionDefinida funcion = new FuncionDefinida(tipoRetorno, listaTiposParams, nombresParams, referenciasLocales, this.referenciasGlobales, this.funciones, ctx.sentencias(), ctx.retorno());
         this.funciones.put(encabezado.nombre, funcion);
     }
 
     public void registrarSubrutina(SLParser.SubrutinaContext ctx, Map<String, Tipo> tiposLocales, Map<String, Valor> referenciasLocales) {
 
         List<Tipo> listaTiposParams = new ArrayList<>();
+        List<String> nombresParams = new ArrayList<>();
         Encabezado encabezado = this.visitarEncabezado(ctx.encabezado(), tiposLocales, referenciasLocales);
         for(Params params:  encabezado.listaParams){
             Tipo tipoParams = params.tipo;
@@ -77,10 +80,11 @@ public class CompiladorFunciones extends SLBaseVisitor<Map<String, Funcion>>{
                 Valor valor = new Valor(tipoParams, false, tipoParams.valorPorDefecto(false));
                 referenciasLocales.put(nombreParam, valor);
                 listaTiposParams.add(tipoParams);
+                nombresParams.add(nombreParam);
             }
         }
         this.procesarDeclaraciones(ctx.declaraciones(), referenciasLocales);
-        SubrutinaDefinida subritina = new SubrutinaDefinida(listaTiposParams, referenciasLocales, this.referenciasGlobales, this.funciones, ctx.sentencias());
+        SubrutinaDefinida subritina = new SubrutinaDefinida(listaTiposParams, nombresParams, referenciasLocales, this.referenciasGlobales, this.funciones, ctx.sentencias());
         this.funciones.put(encabezado.nombre, subritina);
     }
 

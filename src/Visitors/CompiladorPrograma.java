@@ -43,6 +43,7 @@ public class CompiladorPrograma extends SLBaseVisitor<Void> {
 
         Funcion principal = new SubrutinaDefinida(
                 new ArrayList<>(),
+                new ArrayList<>(),
                 referenciasGlobales,
                 referenciasGlobales,
                 funciones,
