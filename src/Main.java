@@ -1,5 +1,7 @@
 
-import Visitors.SLVisitorImpl;
+import Gen.SLLexer;
+import Gen.SLParser;
+import Visitors.EjecutorDeProcedimientos;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
@@ -10,7 +12,7 @@ public class Main {
         SLParser parser = new SLParser(tokens);
         ParseTree tree = parser.expr();
 
-        SLVisitorImpl loader = new SLVisitorImpl();
+        EjecutorDeProcedimientos loader = new EjecutorDeProcedimientos();
         loader.visit(tree);
     }
 }
