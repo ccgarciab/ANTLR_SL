@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class TipoVector implements Tipo {
 
-    Integer dimension;
+    Double dimension;
     Tipo tipoInterno;
 
-    public TipoVector(Integer dimension, Tipo tipoInterno){
+    public TipoVector(Double dimension, Tipo tipoInterno){
         this.dimension = dimension;
         this.tipoInterno = tipoInterno;
     }

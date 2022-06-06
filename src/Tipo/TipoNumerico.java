@@ -12,6 +12,6 @@ public class TipoNumerico implements Tipo{
 
     public Valor valorPorDefecto(boolean constante){
 
-        return new Valor(this, constante, new Integer(0));
+        return new Valor(this, constante, 0);
     }
 }

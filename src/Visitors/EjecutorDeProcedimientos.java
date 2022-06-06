@@ -63,18 +63,18 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         return null;
     }
     @Override public Valor visitDesde(SLParser.DesdeContext ctx) {
-        Integer inicio, limite, paso;
+        Double inicio, limite, paso;
         String cadena = ctx.IDENTIFICADOR().getText();
 
-        inicio = (Integer) this.visitExpr(ctx.expr(0)).valor;
-        limite = (Integer)this.visitExpr(ctx.expr(1)).valor;
+        inicio = (Double) this.visitExpr(ctx.expr(0)).valor;
+        limite = (Double)this.visitExpr(ctx.expr(1)).valor;
         if (ctx.expr(2) != null){
-            paso = (Integer)this.visitExpr(ctx.expr(2)).valor;
+            paso = (Double)this.visitExpr(ctx.expr(2)).valor;
         }else{
-            paso =  1;
+            paso = 1.0;
         }
         if(paso < 0){
-            for (int i = inicio; i >= limite; i+=paso) {
+            for (double i = inicio; i >= limite; i+=paso) {
                 this.referenciasLocales.put(cadena, new Valor(new TipoNumerico(), false, i));
                 for (SLParser.SentenciaContext sentencia : ctx.sentencias().sentencia()) {
                     visitSentencia(sentencia);
@@ -82,7 +82,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
             }
             return null;
         }
-        for (int i = inicio; i <= limite; i+=paso) {
+        for (double i = inicio; i <= limite; i+=paso) {
             this.referenciasLocales.put(cadena, new Valor(new TipoNumerico(), false, i));
             for (SLParser.SentenciaContext sentencia : ctx.sentencias().sentencia()) {
                 visitSentencia(sentencia);
@@ -159,10 +159,10 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
             return visitAcceso(ctx.acceso(0));
         }
         int numAccesos = ctx.acceso().size();
-        Integer exponente = (Integer) this.visitAcceso(ctx.acceso(numAccesos - 1)).valor;
+        Double exponente = (Double) this.visitAcceso(ctx.acceso(numAccesos - 1)).valor;
         for(int i = numAccesos - 2; i >= 0; --i){
-            Integer base = (Integer) this.visitAcceso(ctx.acceso(i)).valor;
-            exponente = Math.toIntExact(Math.round(Math.pow(base, exponente))); //TODO: fix by supporting doubles everywhere
+            Double base = (Double) this.visitAcceso(ctx.acceso(i)).valor;
+            exponente = Math.pow(base, exponente);
         }
         return new Valor(new TipoNumerico(), false, exponente);
     }
@@ -174,8 +174,13 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
             Funcion funcion = this.funciones.get((String)primario.valor);
             funcion.llamar(argumentos);
         } else if (ctx.expr(0) != null) {
-            Integer indice = (Integer) this.visitExpr(ctx.expr(0)).valor;
-            indice -= 1;
+            Double indiceFlotante = (Double) this.visitExpr(ctx.expr(0)).valor;
+            if(indiceFlotante % 1 != 0){
+                System.err.println("Indices de acceso a vectores deben ser enteros");
+                System.exit(1);
+                return null;
+            }
+            int indice = indiceFlotante.intValue() - 1;
             if(primario.tipo.igualA(new TipoCadena())){
                 String caracter = ((String) primario.valor).substring(indice, indice + 1);
                 return new Valor(new TipoCadena(), false, caracter);
@@ -246,7 +251,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
     @Override public Valor visitLiteral(SLParser.LiteralContext ctx) {
 
         if (ctx.LITERAL_NUMERICO() != null){
-            return new Valor(new TipoNumerico(), false, Integer.parseInt(ctx.LITERAL_NUMERICO().getText()));
+            return new Valor(new TipoNumerico(), false, Double.parseDouble(ctx.LITERAL_NUMERICO().getText()));
         }
         else if (ctx.LITERAL_CADENA() != null){
             String cadena = this.aplicarEscapes(ctx.LITERAL_CADENA().getText());
@@ -283,7 +288,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         for (SLParser.ExprContext expr : ctx.expr()) {
             argumentos.add(visitExpr(expr));
         }
-        return new Valor(new TipoVector(argumentos.size(), argumentos.get(0).tipo), false, argumentos);
+        return new Valor(new TipoVector((double) argumentos.size(), argumentos.get(0).tipo), false, argumentos);
     }
 
     @Override public Valor visitExpr(SLParser.ExprContext ctx) {
@@ -342,7 +347,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
                 if(val1.tipo.igualA(tipoCadena)){
                     result = ((String) val1.valor).compareTo(((String) val2.valor)) < 0;
                 } else if (val1.tipo.igualA(tipoNumerico)) {
-                    result = ((Integer) val1.valor) < ((Integer) val2.valor);
+                    result = ((Double) val1.valor) < ((Double) val2.valor);
                 } else {
                     System.err.println("Comparando valores no ordenados");
                     System.exit(1);
@@ -353,7 +358,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
                 if(val1.tipo.igualA(tipoCadena)){
                     result = ((String) val1.valor).compareTo(((String) val2.valor)) <= 0;
                 } else if (val1.tipo.igualA(tipoNumerico)) {
-                    result = ((Integer) val1.valor) <= ((Integer) val2.valor);
+                    result = ((Double) val1.valor) <= ((Double) val2.valor);
                 } else {
                     System.err.println("Comparando valores no ordenados");
                     System.exit(1);
@@ -364,7 +369,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
                 if(val1.tipo.igualA(tipoCadena)){
                     result = ((String) val1.valor).compareTo(((String) val2.valor)) > 0;
                 } else if (val1.tipo.igualA(tipoNumerico)) {
-                    result = ((Integer) val1.valor) > ((Integer) val2.valor);
+                    result = ((Double) val1.valor) > ((Double) val2.valor);
                 } else {
                     System.err.println("Comparando valores no ordenados");
                     System.exit(1);
@@ -375,7 +380,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
                 if(val1.tipo.igualA(tipoCadena)){
                     result = ((String) val1.valor).compareTo(((String) val2.valor)) >= 0;
                 } else if (val1.tipo.igualA(tipoNumerico)) {
-                    result = ((Integer) val1.valor) >= ((Integer) val2.valor);
+                    result = ((Double) val1.valor) >= ((Double) val2.valor);
                 } else {
                     System.err.println("Comparando valores no ordenados");
                     System.exit(1);
@@ -405,9 +410,9 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
             return this.visitFactor(ctx.factor(0));
         }
 
-        Integer result = (Integer) this.visitFactor(ctx.factor(0)).valor;
+        Double result = (Double) this.visitFactor(ctx.factor(0)).valor;
         for(int i = 0; i < ctx.OP_SUMA().size(); ++i){
-            Integer siguiente = (Integer) this.visitFactor(ctx.factor(i+1)).valor;
+            Double siguiente = (Double) this.visitFactor(ctx.factor(i+1)).valor;
             switch (ctx.OP_SUMA(i).getText()){
                 case "+":
                     result += siguiente;
@@ -425,9 +430,9 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
             return this.visitExpr_signo(ctx.expr_signo(0));
         }
 
-        Integer result = (Integer) this.visitExpr_signo(ctx.expr_signo(0)).valor;
+        Double result = (Double) this.visitExpr_signo(ctx.expr_signo(0)).valor;
         for(int i = 0; i < ctx.OP_MUL().size(); ++i){
-            Integer siguiente = (Integer) this.visitExpr_signo(ctx.expr_signo(i+1)).valor;
+            Double siguiente = (Double) this.visitExpr_signo(ctx.expr_signo(i+1)).valor;
             switch (ctx.OP_MUL(i).getText()){
                 case "*":
                     result *= siguiente;

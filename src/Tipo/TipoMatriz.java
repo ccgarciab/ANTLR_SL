@@ -4,14 +4,13 @@ import Valor.Valor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TipoMatriz implements Tipo {
 
-    List<Integer> dimensiones;
+    List<Double> dimensiones;
     Tipo tipoInterno;
 
-    public TipoMatriz(List<Integer> dimensiones, Tipo tipoInterno){
+    public TipoMatriz(List<Double> dimensiones, Tipo tipoInterno){
         this.dimensiones = dimensiones;
         this.tipoInterno = tipoInterno;
     }

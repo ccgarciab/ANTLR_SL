@@ -30,7 +30,7 @@ public class Leer implements Funcion{
                 Valor arg = argumentos.get(i);
                 String in = inputs[i];
                 if(arg.tipo instanceof TipoNumerico){
-                    arg.valor = Integer.parseInt(in);
+                    arg.valor = Double.parseDouble(in);
                 } else if (arg.tipo instanceof TipoLogico) {
                     switch (in){
                         case "SI":

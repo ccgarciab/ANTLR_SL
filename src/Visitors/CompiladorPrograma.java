@@ -102,39 +102,39 @@ public class CompiladorPrograma extends SLBaseVisitor<Void> {
             SLParser.Tipo_vectorContext vecCtx = ctx.tipo_vector();
             SLParser.Tipo_escalarContext escalarCtx = vecCtx.tipo_escalar();
             Tipo tipoEscalar = procesarTipoEscalar(escalarCtx);
-            Integer dimension;
+            Double dimension;
             if(vecCtx.IDENTIFICADOR() != null){
                 String idDim = vecCtx.IDENTIFICADOR().getText();
-                dimension = (Integer) this.referenciasGlobales.get(idDim).valor;
+                dimension = (Double) this.referenciasGlobales.get(idDim).valor;
             } else if (vecCtx.LITERAL_NUMERICO() != null) {
-                dimension = Integer.parseInt(vecCtx.LITERAL_NUMERICO().getText());
+                dimension = Double.parseDouble(vecCtx.LITERAL_NUMERICO().getText());
             } else {
-                dimension = -1;
+                dimension = -1.0;
             }
             return new TipoVector(dimension, tipoEscalar);
         } else if (ctx.tipo_matriz() != null) {
             SLParser.Tipo_matrizContext matCtx = ctx.tipo_matriz();
             SLParser.Tipo_escalarContext escalarCtx = matCtx.tipo_escalar();
             Tipo tipoEscalar = procesarTipoEscalar(escalarCtx);
-            ArrayList<Integer> dimensiones = new ArrayList<>();
+            ArrayList<Double> dimensiones = new ArrayList<>();
             if(matCtx.dimensiones_fijas() != null){
                 SLParser.Dimensiones_fijasContext dimFijaCtx = matCtx.dimensiones_fijas();
                 for(SLParser.DimensionContext dimCtx: dimFijaCtx.dimension()){
                     if(dimCtx.LITERAL_NUMERICO() != null){
-                        dimensiones.add(Integer.parseInt(dimCtx.LITERAL_NUMERICO().getText()));
+                        dimensiones.add(Double.parseDouble(dimCtx.LITERAL_NUMERICO().getText()));
                     } else {
                         Valor dimValor = referenciasGlobales.get(dimCtx.IDENTIFICADOR().getText());
-                        dimensiones.add((Integer) dimValor.valor);
+                        dimensiones.add((Double) dimValor.valor);
                     }
                 }
             }else{
                 SLParser.Dimensiones_variablesContext dimVarCtx = matCtx.dimensiones_variables();
                 for(SLParser.DimensionContext dimCtx: dimVarCtx.dimension()){
                     if(dimCtx.LITERAL_NUMERICO() != null){
-                        dimensiones.add(Integer.parseInt(dimCtx.LITERAL_NUMERICO().getText()));
+                        dimensiones.add(Double.parseDouble(dimCtx.LITERAL_NUMERICO().getText()));
                     } else {
                         Valor dimValor = referenciasGlobales.get(dimCtx.IDENTIFICADOR().getText());
-                        dimensiones.add((Integer) dimValor.valor);
+                        dimensiones.add((Double) dimValor.valor);
                     }
                 }
             }
