@@ -73,6 +73,15 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         }else{
             paso =  1;
         }
+        if(paso < 0){
+            for (int i = inicio; i >= limite; i+=paso) {
+                this.referenciasLocales.put(cadena, new Valor(new TipoNumerico(), false, i));
+                for (SLParser.SentenciaContext sentencia : ctx.sentencias().sentencia()) {
+                    visitSentencia(sentencia);
+                }
+            }
+            return null;
+        }
         for (int i = inicio; i <= limite; i+=paso) {
             this.referenciasLocales.put(cadena, new Valor(new TipoNumerico(), false, i));
             for (SLParser.SentenciaContext sentencia : ctx.sentencias().sentencia()) {
@@ -146,34 +155,16 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
     }
 
     @Override public Valor visitPotencia(SLParser.PotenciaContext ctx) {
-        Valor valor = new Valor(new TipoNumerico(), false, 0);
         if(ctx.acceso().size()==1){
             return visitAcceso(ctx.acceso(0));
         }
-        Double base = (Double) visitAcceso(ctx.acceso(0)).valor;
-        Double potencia = 1.0;
-        int i = 1;
-        while (ctx.acceso(i)!=null){
-            potencia *= (Float) visitAcceso(ctx.acceso(i)).valor;
-            i++;
+        int numAccesos = ctx.acceso().size();
+        Integer exponente = (Integer) this.visitAcceso(ctx.acceso(numAccesos - 1)).valor;
+        for(int i = numAccesos - 2; i >= 0; --i){
+            Integer base = (Integer) this.visitAcceso(ctx.acceso(i)).valor;
+            exponente = Math.toIntExact(Math.round(Math.pow(base, exponente))); //TODO: fix by supporting doubles everywhere
         }
-        double result = 1.0;
-        double cero = 0.0;
-        if(base > 0 && potencia==0){
-            valor.valor = result;
-        }
-        else if(base == 0 && potencia>=1){
-            valor.valor = cero;
-        }
-        else{
-            i = 1;
-            while (i<potencia){
-                result *= base;
-                i++;
-            }
-            return valor;
-        }
-        return valor;
+        return new Valor(new TipoNumerico(), false, exponente);
     }
 
     @Override public Valor visitAcceso(SLParser.AccesoContext ctx){
@@ -199,8 +190,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         if (ctx.literal() != null) return visitLiteral(ctx.literal());
         else if (ctx.IDENTIFICADOR()!= null) {
             if(this.funciones.containsKey(ctx.IDENTIFICADOR().getText())){
-                Valor valor = new Valor(new TipoCadena(), false, ctx.IDENTIFICADOR().getText());
-                return valor;
+                return new Valor(new TipoCadena(), false, ctx.IDENTIFICADOR().getText());
             }
             return visitIdentificador(ctx.IDENTIFICADOR());
         }else {
@@ -304,7 +294,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         if(ctx.conjuncion().size()==1){
             return visitConjuncion(ctx.conjuncion(0));
         }
-        Boolean bool = false;
+        boolean bool = false;
         for (int i = 0; i<ctx.conjuncion().size(); i ++){
             bool = bool || (Boolean) visitConjuncion(ctx.conjuncion(i)).valor;
         }
@@ -315,7 +305,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         if(ctx.negacion().size()==1){
             return this.visitNegacion(ctx.negacion(0));
         }
-        Boolean bool = true;
+        boolean bool = true;
         for (int i = 0; i<ctx.negacion().size(); i ++){
             bool = bool && (Boolean) this.visitNegacion(ctx.negacion(i)).valor;
         }
@@ -338,7 +328,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         }
         Valor val1 = this.visitTermino(ctx.termino(0));
         Valor val2 = this.visitTermino(ctx.termino(1));
-        Boolean result = new Boolean(true);
+        boolean result = true;
         Tipo tipoCadena = new TipoCadena();
         Tipo tipoNumerico = new TipoNumerico();
         switch (ctx.OP_COMPARACION(0).getText()){
