@@ -174,19 +174,15 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
 
     @Override public Valor visitAcceso(SLParser.AccesoContext ctx){
         Valor primario = visitPrimario(ctx.primario());
-        if(ctx.argumentos() != null){
-            List<Valor> argumentos = new ArrayList<>();
-            argumentos =  visitaArgumentos(ctx.argumentos(0));
+        if(ctx.argumentos(0) != null){
+            List<Valor> argumentos = visitaArgumentos(ctx.argumentos(0));
             Funcion funcion = this.funciones.get((String)primario.valor);
             funcion.llamar(argumentos);
-        } else if (ctx.expr()!= null) {
-            int i = 0;
-            while (ctx.expr(i)!= null){
-                visitExpr(ctx.expr(i));
-                i ++;
-            }
+        } else if (ctx.expr(0) != null) {
+            ArrayList<Valor> vector = (ArrayList<Valor>) primario.valor;
+            return vector.get((Integer) this.visitExpr(ctx.expr(0)).valor);
         }
-        return null;
+        return primario;
     }
 
     @Override public Valor visitPrimario(SLParser.PrimarioContext ctx){
@@ -307,5 +303,102 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
             bool = bool && (Boolean) visitNegacion(ctx.negacion(i)).valor;
         }
         return new Valor(new TipoLogico(), false, bool);
+    }
+
+    @Override
+    public Valor visitNegacion(SLParser.NegacionContext ctx) {
+        if(ctx.comparacion() != null){
+            return this.visitComparacion(ctx.comparacion());
+        }
+        Valor valor = this.visitNegacion(ctx.negacion());
+        return new Valor(new TipoLogico(), false, valor.valor);
+    }
+
+    public Valor visitComparacion(SLParser.ComparacionContext ctx){
+
+        if(ctx.termino().size() == 1){
+            return this.visitTermino(ctx.termino(0));
+        }
+        Valor val1 = this.visitTermino(ctx.termino(0));
+        Valor val2 = this.visitTermino(ctx.termino(1));
+        Boolean result = new Boolean(true);
+        switch (ctx.OP_COMPARACION(0).getText()){
+            case "==":
+                result = val1.valor.equals(val2.valor);
+                break;
+            case "<>":
+                result = !val1.valor.equals(val2.valor);
+                break;
+            case "<":
+                result = ((Integer) val1.valor) < ((Integer) val2.valor);
+                break;
+            case "<=":
+                result = ((Integer) val1.valor) <= ((Integer) val2.valor);
+                break;
+            case ">":
+                result = ((Integer) val1.valor) > ((Integer) val2.valor);
+                break;
+            case ">=":
+                result = ((Integer) val1.valor) >= ((Integer) val2.valor);
+                break;
+        }
+        for (int i = 1; i < ctx.OP_COMPARACION().size(); ++i){
+            switch (ctx.OP_COMPARACION(i).getText()){
+                case "==":
+                    result = this.visitTermino(ctx.termino(i+1)).valor.equals(result);
+                    break;
+                case "<>":
+                    result = !this.visitTermino(ctx.termino(i+1)).valor.equals(result);
+                    break;
+                default:
+                    System.err.println("Comparacion de tipos no compatibles");
+                    System.exit(1);
+                    return null;
+            }
+        }
+        return new Valor(new TipoLogico(), false, result);
+    }
+
+    public Valor visitTermino(SLParser.TerminoContext ctx) {
+        if(ctx.factor().size() == 1){
+            return this.visitFactor(ctx.factor(0));
+        }
+
+        Integer result = (Integer) this.visitFactor(ctx.factor(0)).valor;
+        for(int i = 0; i < ctx.OP_SUMA().size(); ++i){
+            Integer siguiente = (Integer) this.visitFactor(ctx.factor(i+1)).valor;
+            switch (ctx.OP_SUMA(i).getText()){
+                case "+":
+                    result += siguiente;
+                    break;
+                case "-":
+                    result -= siguiente;
+                    break;
+            }
+        }
+        return new Valor(new TipoNumerico(), false, result);
+    }
+
+    public Valor visitFactor(SLParser.FactorContext ctx) {
+        if(ctx.expr_signo().size() == 1){
+            return this.visitExpr_signo(ctx.expr_signo(0));
+        }
+
+        Integer result = (Integer) this.visitExpr_signo(ctx.expr_signo(0)).valor;
+        for(int i = 0; i < ctx.OP_MUL().size(); ++i){
+            Integer siguiente = (Integer) this.visitExpr_signo(ctx.expr_signo(i+1)).valor;
+            switch (ctx.OP_MUL(i).getText()){
+                case "*":
+                    result *= siguiente;
+                    break;
+                case "/":
+                    result /= siguiente;
+                    break;
+                case "%":
+                    result %= siguiente;
+                    break;
+            }
+        }
+        return new Valor(new TipoNumerico(), false, result);
     }
 }
