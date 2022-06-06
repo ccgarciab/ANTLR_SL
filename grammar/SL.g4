@@ -16,7 +16,7 @@ tipos_kw: 'tipos';
 decl_tipo: IDENTIFICADOR ':' tipo ';'?;
 decl_vars: IDENTIFICADOR (',' IDENTIFICADOR)* ':' tipo ';'?;
 decl_const: IDENTIFICADOR '=' (literal | IDENTIFICADOR) ';'?;
-tipo: tipo_escalar | tipo_vector | tipo_matriz;
+tipo: tipo_escalar | tipo_vector | tipo_matriz | IDENTIFICADOR;
 tipo_escalar: 'numerico' | 'logico' | 'cadena';
 tipo_vector: 'vector' '[' (LITERAL_NUMERICO | IDENTIFICADOR | '*') ']' tipo_escalar;
 tipo_matriz: 'matriz' '[' (dimensiones_variables | dimensiones_fijas) ']' tipo_escalar;

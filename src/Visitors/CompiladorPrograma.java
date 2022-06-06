@@ -120,7 +120,7 @@ public class CompiladorPrograma extends SLBaseVisitor<Void> {
                         dimensiones.add((Integer) dimValor.valor);
                     }
                 }
-            }else {
+            }else{
                 SLParser.Dimensiones_variablesContext dimVarCtx = matCtx.dimensiones_variables();
                 for(SLParser.DimensionContext dimCtx: dimVarCtx.dimension()){
                     if(dimCtx.LITERAL_NUMERICO() != null){
@@ -132,8 +132,10 @@ public class CompiladorPrograma extends SLBaseVisitor<Void> {
                 }
             }
             return new TipoMatriz(dimensiones, tipoEscalar);
+        } else {
+            String id = ctx.IDENTIFICADOR().getText();
+            return this.tiposGlobales.get(id);
         }
-        return null;
     }
 
     public Tipo procesarTipoEscalar(SLParser.Tipo_escalarContext ctx){
