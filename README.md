@@ -21,5 +21,3 @@ Diego Velasquez
 Catalina Aldana
 Cristian Garcia
 Santiago Hernandez
-@El compa que no se como se llama
-
