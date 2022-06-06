@@ -278,11 +278,16 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         return new Valor(new TipoVector(argumentos.size(), argumentos.get(0).tipo), false, argumentos);
     }
 
+    @Override public Valor visitExpr(SLParser.ExprContext ctx) {
+        return visitDisyuncion(ctx.disyuncion());
+    }
 
-
-
-
-
-
+    @Override public Valor visitDisyuncion(SLParser.DisyuncionContext ctx) {
+        int i = 0;
+        while (ctx.conjuncion(i)!= null){
+            visitConjuncion(ctx.conjuncion(i));
+        }
+        return null;
+    }
 
 }
