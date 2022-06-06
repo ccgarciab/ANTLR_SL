@@ -7,7 +7,6 @@ import Funcion.Funcion;
 import Tipo.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -74,7 +73,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         }else{
             paso =  1;
         }
-        for (int i = inicio; i < limite; i+=paso) {
+        for (int i = inicio; i <= limite; i+=paso) {
             this.referenciasLocales.put(cadena, new Valor(new TipoNumerico(), false, i));
             for (SLParser.SentenciaContext sentencia : ctx.sentencias().sentencia()) {
                 visitSentencia(sentencia);
@@ -185,6 +184,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
             funcion.llamar(argumentos);
         } else if (ctx.expr(0) != null) {
             Integer indice = (Integer) this.visitExpr(ctx.expr(0)).valor;
+            indice -= 1;
             if(primario.tipo.igualA(new TipoCadena())){
                 String caracter = ((String) primario.valor).substring(indice, indice + 1);
                 return new Valor(new TipoCadena(), false, caracter);
@@ -221,11 +221,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
     }
 
     @Override public Valor visitRetorno(SLParser.RetornoContext ctx){
-        if (ctx.RETORNA()!= null){
-            return visitExpr(ctx.expr());
-        }else{
-            return null;
-        }
+        return visitExpr(ctx.expr());
     }
 
     @Override public Valor visitExpr_signo(SLParser.Expr_signoContext ctx) {
@@ -263,7 +259,9 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
             return new Valor(new TipoNumerico(), false, Integer.parseInt(ctx.LITERAL_NUMERICO().getText()));
         }
         else if (ctx.LITERAL_CADENA() != null){
-            return new Valor(new TipoCadena(), false, ctx.LITERAL_CADENA().getText());
+            String cadena = this.aplicarEscapes(ctx.LITERAL_CADENA().getText());
+            cadena = cadena.substring(1, cadena.length() - 1);
+            return new Valor(new TipoCadena(), false, cadena);
         }
         else if (ctx.LITERAL_LOGICO() != null){
 
@@ -278,6 +276,15 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         else {
             return visitLiteral_compuesto(ctx.literal_compuesto());
         }
+    }
+
+    private String aplicarEscapes(String text) {
+
+        return text
+                .replaceAll("\\\\n", "\n")
+                .replaceAll("\\\\t", "\t")
+                .replaceAll("\\\\r", "\r")
+                .replaceAll("\\\\(.)", "$1");
     }
 
 

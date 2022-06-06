@@ -2,6 +2,7 @@ package Funcion;
 
 import java.util.List;
 
+import Tipo.TipoCadena;
 import Valor.Valor;
 
 public class Imprimir implements Funcion{
@@ -11,7 +12,7 @@ public class Imprimir implements Funcion{
 
     @Override public Valor llamar(List<Valor> argumentos) {
         for (Valor argumento:argumentos) {
-            System.out.print(argumento.valor + " ");
+            System.out.print(argumento.valor);
         }
         return null;
     }
