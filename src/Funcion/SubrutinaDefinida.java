@@ -3,6 +3,7 @@ package Funcion;
 import Gen.SLParser;
 import Tipo.Tipo;
 import Valor.Valor;
+import Visitors.EjecutorDeProcedimientos;
 
 import java.util.List;
 import java.util.Map;
@@ -42,8 +43,8 @@ public class SubrutinaDefinida implements Funcion{
             }
         }
 
-        //Visitor.EjecutorDeSentencias ejecutor = new Visitor.EjecutorDeSentencias();
-
+        EjecutorDeProcedimientos ejecutor = new EjecutorDeProcedimientos(this.referenciasGlobales, this.referenciasLocales, this.funciones);
+        ejecutor.visitSentencias(this.sentencias);
         return null;
     }
 }

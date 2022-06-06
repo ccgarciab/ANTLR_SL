@@ -143,7 +143,9 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
 
     @Override public Valor visitPotencia(SLParser.PotenciaContext ctx) {
         Valor valor = new Valor(new TipoNumerico(), false, 0);
-
+        if(ctx.acceso().size()==1){
+            return visitAcceso(ctx.acceso(0));
+        }
         Double base = (Double) visitAcceso(ctx.acceso(0)).valor;
         Double potencia = 1.0;
         int i = 1;
@@ -171,26 +173,17 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
     }
 
     @Override public Valor visitAcceso(SLParser.AccesoContext ctx){
-        visitPrimario(ctx.primario());
+        Valor primario = visitPrimario(ctx.primario());
         if(ctx.argumentos() != null){
-            int i = 0;
-            while (ctx.argumentos(i)!= null){
-                List<Valor> argumentos = new ArrayList<>();
-                argumentos = visitaArgumentos(ctx.argumentos(i));
-                i ++;
-            }
-            //LLamar a la funcion
+            List<Valor> argumentos = new ArrayList<>();
+            argumentos =  visitaArgumentos(ctx.argumentos(0));
+            Funcion funcion = this.funciones.get((String)primario.valor);
+            funcion.llamar(argumentos);
         } else if (ctx.expr()!= null) {
             int i = 0;
             while (ctx.expr(i)!= null){
                 visitExpr(ctx.expr(i));
                 i ++;
-            }
-        }else if (ctx.IDENTIFICADOR() != null){
-            int i = 0;
-            while (ctx.IDENTIFICADOR(i)!=  null) {
-                visitIdentificador(ctx.IDENTIFICADOR(i));
-                i++;
             }
         }
         return null;
@@ -199,11 +192,14 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
     @Override public Valor visitPrimario(SLParser.PrimarioContext ctx){
         if (ctx.literal() != null) return visitLiteral(ctx.literal());
         else if (ctx.IDENTIFICADOR()!= null) {
+            if(this.funciones.containsKey(ctx.IDENTIFICADOR().getText())){
+                Valor valor = new Valor(new TipoCadena(), false, ctx.IDENTIFICADOR().getText());
+                return valor;
+            }
             return visitIdentificador(ctx.IDENTIFICADOR());
         }else {
             return visitExpr(ctx.expr());
         }
-
     }
 
 
@@ -228,9 +224,9 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
 
     @Override public Valor visitExpr_signo(SLParser.Expr_signoContext ctx) {
 
-        if (ctx.OP_SUMA().getText().equals("+")){
+        if (ctx.OP_SUMA()!= null && ctx.OP_SUMA().getText().equals("+")){
             return visitExpr_signo(ctx.expr_signo());
-        }else if(ctx.OP_SUMA().getText().equals("-")){
+        }else if(ctx.OP_SUMA()!= null && ctx.OP_SUMA().getText().equals("-")){
             Valor valor =  visitExpr_signo(ctx.expr_signo());
             double value = (double) valor.valor;
             value = - value;
@@ -292,11 +288,24 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
     }
 
     @Override public Valor visitDisyuncion(SLParser.DisyuncionContext ctx) {
-        int i = 0;
-        while (ctx.conjuncion(i)!= null){
-            visitConjuncion(ctx.conjuncion(i));
+        if(ctx.conjuncion().size()==1){
+            return visitConjuncion(ctx.conjuncion(0));
         }
-        return null;
+        Boolean bool = false;
+        for (int i = 0; i<ctx.conjuncion().size(); i ++){
+            bool = bool || (Boolean) visitConjuncion(ctx.conjuncion(i)).valor;
+        }
+        return new Valor(new TipoLogico(), false, bool);
     }
 
+    @Override public Valor visitConjuncion(SLParser.ConjuncionContext ctx) {
+        if(ctx.negacion().size()==1){
+            return visitNegacion(ctx.negacion(0));
+        }
+        Boolean bool = true;
+        for (int i = 0; i<ctx.negacion().size(); i ++){
+            bool = bool && (Boolean) visitNegacion(ctx.negacion(i)).valor;
+        }
+        return new Valor(new TipoLogico(), false, bool);
+    }
 }

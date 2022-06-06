@@ -43,7 +43,7 @@ termino: factor (OP_SUMA factor)*;
 factor: expr_signo (('*' | '/' | '%') expr_signo)*;
 expr_signo: OP_SUMA expr_signo | potencia;
 potencia: acceso ('^' acceso)*;
-acceso: primario ('(' argumentos? ')' | '[' expr ']' | '.' IDENTIFICADOR)*;
+acceso: primario ('(' argumentos? ')' | '[' expr ']')*;
 primario: literal | IDENTIFICADOR | '(' expr ')';
 argumentos: expr (',' expr)*;
 literal_compuesto: '{' expr (',' expr)* '}';

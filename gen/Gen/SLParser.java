@@ -22,9 +22,9 @@ public class SLParser extends Parser {
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
 		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
 		T__31=32, T__32=33, T__33=34, T__34=35, T__35=36, T__36=37, T__37=38, 
-		T__38=39, T__39=40, T__40=41, T__41=42, RETORNA=43, OP_COMPARACION=44, 
-		OP_SUMA=45, LITERAL_NUMERICO=46, LITERAL_CADENA=47, LITERAL_LOGICO=48, 
-		IDENTIFICADOR=49, COMENTARIO_MULTILINEA=50, COMENTARIO_LINEA=51, ESPACIO=52;
+		T__38=39, T__39=40, T__40=41, RETORNA=42, OP_COMPARACION=43, OP_SUMA=44, 
+		LITERAL_NUMERICO=45, LITERAL_CADENA=46, LITERAL_LOGICO=47, IDENTIFICADOR=48, 
+		COMENTARIO_MULTILINEA=49, COMENTARIO_LINEA=50, ESPACIO=51;
 	public static final int
 		RULE_inicial = 0, RULE_programa = 1, RULE_nombre_programa = 2, RULE_programa_principal = 3, 
 		RULE_declaraciones = 4, RULE_tipos = 5, RULE_vars = 6, RULE_consts = 7, 
@@ -64,7 +64,7 @@ public class SLParser extends Parser {
 			"'logico'", "'cadena'", "'vector'", "'['", "'*'", "']'", "'matriz'", 
 			"'si'", "'{'", "'sino'", "'}'", "'('", "')'", "'mientras'", "'repetir'", 
 			"'hasta'", "'eval'", "'caso'", "'desde'", "'paso'", "'or'", "'and'", 
-			"'not'", "'/'", "'%'", "'^'", "'.'", "'ref'", "'subrutina'", "'retorna'"
+			"'not'", "'/'", "'%'", "'^'", "'ref'", "'subrutina'", "'retorna'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -73,8 +73,8 @@ public class SLParser extends Parser {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, "RETORNA", "OP_COMPARACION", 
-			"OP_SUMA", "LITERAL_NUMERICO", "LITERAL_CADENA", "LITERAL_LOGICO", "IDENTIFICADOR", 
+			null, null, null, null, null, null, "RETORNA", "OP_COMPARACION", "OP_SUMA", 
+			"LITERAL_NUMERICO", "LITERAL_CADENA", "LITERAL_LOGICO", "IDENTIFICADOR", 
 			"COMENTARIO_MULTILINEA", "COMENTARIO_LINEA", "ESPACIO"
 		};
 	}
@@ -145,6 +145,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_inicial; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterInicial(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitInicial(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitInicial(this);
 			else return visitor.visitChildren(this);
@@ -163,7 +171,7 @@ public class SLParser extends Parser {
 			setState(112);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__41) {
+			while (_la==T__40) {
 				{
 				{
 				setState(109);
@@ -200,6 +208,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_programa; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterPrograma(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitPrograma(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitPrograma(this);
@@ -246,6 +262,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_nombre_programa; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterNombre_programa(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitNombre_programa(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitNombre_programa(this);
 			else return visitor.visitChildren(this);
@@ -286,6 +310,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_programa_principal; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterPrograma_principal(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitPrograma_principal(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitPrograma_principal(this);
@@ -339,6 +371,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_declaraciones; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterDeclaraciones(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitDeclaraciones(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitDeclaraciones(this);
@@ -417,6 +457,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_tipos; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterTipos(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitTipos(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitTipos(this);
 			else return visitor.visitChildren(this);
@@ -473,6 +521,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_vars; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterVars(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitVars(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitVars(this);
@@ -531,6 +587,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_consts; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterConsts(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitConsts(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitConsts(this);
 			else return visitor.visitChildren(this);
@@ -582,6 +646,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_cuerpo_principal; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterCuerpo_principal(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitCuerpo_principal(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitCuerpo_principal(this);
 			else return visitor.visitChildren(this);
@@ -618,6 +690,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_var_kw; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterVar_kw(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitVar_kw(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitVar_kw(this);
@@ -661,6 +741,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_const_kw; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterConst_kw(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitConst_kw(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitConst_kw(this);
 			else return visitor.visitChildren(this);
@@ -703,6 +791,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_tipos_kw; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterTipos_kw(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitTipos_kw(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitTipos_kw(this);
 			else return visitor.visitChildren(this);
@@ -739,6 +835,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_decl_tipo; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterDecl_tipo(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitDecl_tipo(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitDecl_tipo(this);
@@ -794,6 +898,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_decl_vars; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterDecl_vars(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitDecl_vars(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitDecl_vars(this);
@@ -865,6 +977,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_decl_const; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterDecl_const(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitDecl_const(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitDecl_const(this);
@@ -943,6 +1063,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_tipo; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterTipo(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitTipo(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitTipo(this);
 			else return visitor.visitChildren(this);
@@ -1007,6 +1135,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_tipo_escalar; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterTipo_escalar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitTipo_escalar(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitTipo_escalar(this);
 			else return visitor.visitChildren(this);
@@ -1053,6 +1189,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_tipo_vector; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterTipo_vector(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitTipo_vector(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitTipo_vector(this);
@@ -1112,6 +1256,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_tipo_matriz; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterTipo_matriz(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitTipo_matriz(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitTipo_matriz(this);
@@ -1182,6 +1334,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_dimensiones_variables; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterDimensiones_variables(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitDimensiones_variables(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitDimensiones_variables(this);
@@ -1258,6 +1418,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_dimensiones_fijas; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterDimensiones_fijas(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitDimensiones_fijas(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitDimensiones_fijas(this);
 			else return visitor.visitChildren(this);
@@ -1310,6 +1478,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_dimension; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterDimension(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitDimension(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitDimension(this);
 			else return visitor.visitChildren(this);
@@ -1352,6 +1528,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_dimension_variable; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterDimension_variable(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitDimension_variable(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitDimension_variable(this);
 			else return visitor.visitChildren(this);
@@ -1390,6 +1574,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_literal; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitLiteral(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitLiteral(this);
@@ -1473,6 +1665,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_sentencia; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterSentencia(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitSentencia(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitSentencia(this);
@@ -1574,6 +1774,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_si; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterSi(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitSi(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitSi(this);
 			else return visitor.visitChildren(this);
@@ -1657,6 +1865,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_sino_si; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterSino_si(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitSino_si(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitSino_si(this);
 			else return visitor.visitChildren(this);
@@ -1701,6 +1917,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_sentencias; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterSentencias(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitSentencias(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitSentencias(this);
@@ -1751,6 +1975,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_condicion; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterCondicion(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitCondicion(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitCondicion(this);
 			else return visitor.visitChildren(this);
@@ -1793,6 +2025,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_mientras; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterMientras(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitMientras(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitMientras(this);
@@ -1840,6 +2080,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_repetir_hasta; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterRepetir_hasta(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitRepetir_hasta(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitRepetir_hasta(this);
@@ -1891,6 +2139,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_eval; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterEval(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitEval(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitEval(this);
@@ -1970,6 +2226,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_desde; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterDesde(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitDesde(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitDesde(this);
 			else return visitor.visitChildren(this);
@@ -2036,6 +2300,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_asignacion; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterAsignacion(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitAsignacion(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitAsignacion(this);
 			else return visitor.visitChildren(this);
@@ -2076,6 +2348,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_expr; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitExpr(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitExpr(this);
 			else return visitor.visitChildren(this);
@@ -2114,6 +2394,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_disyuncion; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterDisyuncion(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitDisyuncion(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitDisyuncion(this);
@@ -2171,6 +2459,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_conjuncion; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterConjuncion(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitConjuncion(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitConjuncion(this);
 			else return visitor.visitChildren(this);
@@ -2226,6 +2522,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_negacion; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterNegacion(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitNegacion(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitNegacion(this);
@@ -2293,6 +2597,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_comparacion; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterComparacion(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitComparacion(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitComparacion(this);
 			else return visitor.visitChildren(this);
@@ -2353,6 +2665,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_termino; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterTermino(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitTermino(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitTermino(this);
 			else return visitor.visitChildren(this);
@@ -2410,6 +2730,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_factor; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterFactor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitFactor(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitFactor(this);
@@ -2476,6 +2804,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_expr_signo; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterExpr_signo(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitExpr_signo(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitExpr_signo(this);
 			else return visitor.visitChildren(this);
@@ -2537,6 +2873,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_potencia; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterPotencia(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitPotencia(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitPotencia(this);
 			else return visitor.visitChildren(this);
@@ -2591,10 +2935,6 @@ public class SLParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public List<TerminalNode> IDENTIFICADOR() { return getTokens(SLParser.IDENTIFICADOR); }
-		public TerminalNode IDENTIFICADOR(int i) {
-			return getToken(SLParser.IDENTIFICADOR, i);
-		}
 		public List<ArgumentosContext> argumentos() {
 			return getRuleContexts(ArgumentosContext.class);
 		}
@@ -2605,6 +2945,14 @@ public class SLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_acceso; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterAcceso(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitAcceso(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitAcceso(this);
@@ -2622,13 +2970,13 @@ public class SLParser extends Parser {
 			{
 			setState(403);
 			primario();
-			setState(417);
+			setState(415);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,36,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
-					setState(415);
+					setState(413);
 					_errHandler.sync(this);
 					switch (_input.LA(1)) {
 					case T__24:
@@ -2659,20 +3007,12 @@ public class SLParser extends Parser {
 						match(T__18);
 						}
 						break;
-					case T__39:
-						{
-						setState(413);
-						match(T__39);
-						setState(414);
-						match(IDENTIFICADOR);
-						}
-						break;
 					default:
 						throw new NoViableAltException(this);
 					}
 					} 
 				}
-				setState(419);
+				setState(417);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,36,_ctx);
 			}
@@ -2702,6 +3042,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_primario; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterPrimario(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitPrimario(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitPrimario(this);
 			else return visitor.visitChildren(this);
@@ -2712,7 +3060,7 @@ public class SLParser extends Parser {
 		PrimarioContext _localctx = new PrimarioContext(_ctx, getState());
 		enterRule(_localctx, 88, RULE_primario);
 		try {
-			setState(426);
+			setState(424);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__21:
@@ -2721,25 +3069,25 @@ public class SLParser extends Parser {
 			case LITERAL_LOGICO:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(420);
+				setState(418);
 				literal();
 				}
 				break;
 			case IDENTIFICADOR:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(421);
+				setState(419);
 				match(IDENTIFICADOR);
 				}
 				break;
 			case T__24:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(422);
+				setState(420);
 				match(T__24);
-				setState(423);
+				setState(421);
 				expr();
-				setState(424);
+				setState(422);
 				match(T__25);
 				}
 				break;
@@ -2770,6 +3118,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_argumentos; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterArgumentos(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitArgumentos(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitArgumentos(this);
 			else return visitor.visitChildren(this);
@@ -2783,21 +3139,21 @@ public class SLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(428);
+			setState(426);
 			expr();
-			setState(433);
+			setState(431);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__10) {
 				{
 				{
-				setState(429);
+				setState(427);
 				match(T__10);
-				setState(430);
+				setState(428);
 				expr();
 				}
 				}
-				setState(435);
+				setState(433);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -2826,6 +3182,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_literal_compuesto; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterLiteral_compuesto(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitLiteral_compuesto(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitLiteral_compuesto(this);
 			else return visitor.visitChildren(this);
@@ -2839,27 +3203,27 @@ public class SLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(436);
+			setState(434);
 			match(T__21);
-			setState(437);
+			setState(435);
 			expr();
-			setState(442);
+			setState(440);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__10) {
 				{
 				{
-				setState(438);
+				setState(436);
 				match(T__10);
-				setState(439);
+				setState(437);
 				expr();
 				}
 				}
-				setState(444);
+				setState(442);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(445);
+			setState(443);
 			match(T__23);
 			}
 		}
@@ -2886,6 +3250,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_procedimiento; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterProcedimiento(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitProcedimiento(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitProcedimiento(this);
 			else return visitor.visitChildren(this);
@@ -2896,20 +3268,20 @@ public class SLParser extends Parser {
 		ProcedimientoContext _localctx = new ProcedimientoContext(_ctx, getState());
 		enterRule(_localctx, 94, RULE_procedimiento);
 		try {
-			setState(449);
+			setState(447);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,40,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(447);
+				setState(445);
 				subrutina();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(448);
+				setState(446);
 				funcion();
 				}
 				break;
@@ -2939,6 +3311,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_parametros; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterParametros(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitParametros(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitParametros(this);
 			else return visitor.visitChildren(this);
@@ -2952,37 +3332,37 @@ public class SLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(452);
+			setState(450);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==T__40) {
+			if (_la==T__39) {
 				{
-				setState(451);
-				match(T__40);
+				setState(449);
+				match(T__39);
 				}
 			}
 
-			setState(454);
+			setState(452);
 			match(IDENTIFICADOR);
-			setState(459);
+			setState(457);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__10) {
 				{
 				{
-				setState(455);
+				setState(453);
 				match(T__10);
-				setState(456);
+				setState(454);
 				match(IDENTIFICADOR);
 				}
 				}
-				setState(461);
+				setState(459);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(462);
+			setState(460);
 			match(T__8);
-			setState(463);
+			setState(461);
 			tipo();
 			}
 		}
@@ -3009,6 +3389,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_lista_parametros; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterLista_parametros(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitLista_parametros(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitLista_parametros(this);
 			else return visitor.visitChildren(this);
@@ -3022,21 +3410,21 @@ public class SLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(465);
+			setState(463);
 			parametros();
-			setState(470);
+			setState(468);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__9) {
 				{
 				{
-				setState(466);
+				setState(464);
 				match(T__9);
-				setState(467);
+				setState(465);
 				parametros();
 				}
 				}
-				setState(472);
+				setState(470);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -3063,6 +3451,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_encabezado; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterEncabezado(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitEncabezado(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitEncabezado(this);
 			else return visitor.visitChildren(this);
@@ -3076,23 +3472,23 @@ public class SLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(473);
-			match(T__41);
-			setState(474);
+			setState(471);
+			match(T__40);
+			setState(472);
 			match(IDENTIFICADOR);
-			setState(475);
+			setState(473);
 			match(T__24);
-			setState(477);
+			setState(475);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==T__40 || _la==IDENTIFICADOR) {
+			if (_la==T__39 || _la==IDENTIFICADOR) {
 				{
-				setState(476);
+				setState(474);
 				lista_parametros();
 				}
 			}
 
-			setState(479);
+			setState(477);
 			match(T__25);
 			}
 		}
@@ -3117,6 +3513,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_retorno; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterRetorno(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitRetorno(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitRetorno(this);
 			else return visitor.visitChildren(this);
@@ -3129,9 +3533,9 @@ public class SLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(481);
+			setState(479);
 			match(RETORNA);
-			setState(482);
+			setState(480);
 			expr();
 			}
 		}
@@ -3161,6 +3565,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_subrutina; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterSubrutina(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitSubrutina(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitSubrutina(this);
 			else return visitor.visitChildren(this);
@@ -3173,15 +3585,15 @@ public class SLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(484);
+			setState(482);
 			encabezado();
-			setState(485);
+			setState(483);
 			declaraciones();
-			setState(486);
+			setState(484);
 			match(T__1);
-			setState(487);
+			setState(485);
 			sentencias();
-			setState(488);
+			setState(486);
 			match(T__2);
 			}
 		}
@@ -3218,6 +3630,14 @@ public class SLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_funcion; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).enterFuncion(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SLListener ) ((SLListener)listener).exitFuncion(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SLVisitor ) return ((SLVisitor<? extends T>)visitor).visitFuncion(this);
 			else return visitor.visitChildren(this);
@@ -3230,21 +3650,21 @@ public class SLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(490);
+			setState(488);
 			encabezado();
-			setState(491);
+			setState(489);
 			match(RETORNA);
-			setState(492);
+			setState(490);
 			tipo();
-			setState(493);
+			setState(491);
 			declaraciones();
-			setState(494);
+			setState(492);
 			match(T__1);
-			setState(495);
+			setState(493);
 			sentencias();
-			setState(496);
+			setState(494);
 			retorno();
-			setState(497);
+			setState(495);
 			match(T__2);
 			}
 		}
@@ -3260,7 +3680,7 @@ public class SLParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u00014\u01f4\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u00013\u01f2\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -3317,50 +3737,50 @@ public class SLParser extends Parser {
 		"\b\'\n\'\f\'\u017d\t\'\u0001(\u0001(\u0001(\u0005(\u0182\b(\n(\f(\u0185"+
 		"\t(\u0001)\u0001)\u0001)\u0003)\u018a\b)\u0001*\u0001*\u0001*\u0005*\u018f"+
 		"\b*\n*\f*\u0192\t*\u0001+\u0001+\u0001+\u0003+\u0197\b+\u0001+\u0001+"+
-		"\u0001+\u0001+\u0001+\u0001+\u0001+\u0005+\u01a0\b+\n+\f+\u01a3\t+\u0001"+
-		",\u0001,\u0001,\u0001,\u0001,\u0001,\u0003,\u01ab\b,\u0001-\u0001-\u0001"+
-		"-\u0005-\u01b0\b-\n-\f-\u01b3\t-\u0001.\u0001.\u0001.\u0001.\u0005.\u01b9"+
-		"\b.\n.\f.\u01bc\t.\u0001.\u0001.\u0001/\u0001/\u0003/\u01c2\b/\u00010"+
-		"\u00030\u01c5\b0\u00010\u00010\u00010\u00050\u01ca\b0\n0\f0\u01cd\t0\u0001"+
-		"0\u00010\u00010\u00011\u00011\u00011\u00051\u01d5\b1\n1\f1\u01d8\t1\u0001"+
-		"2\u00012\u00012\u00012\u00032\u01de\b2\u00012\u00012\u00013\u00013\u0001"+
-		"3\u00014\u00014\u00014\u00014\u00014\u00014\u00015\u00015\u00015\u0001"+
-		"5\u00015\u00015\u00015\u00015\u00015\u00015\u0000\u00006\u0000\u0002\u0004"+
-		"\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \""+
-		"$&(*,.02468:<>@BDFHJLNPRTVXZ\\^`bdfhj\u0000\u0006\u0001\u0000\u0004\u0005"+
-		"\u0001\u0000\u0006\u0007\u0001\u0000\r\u000f\u0003\u0000\u0012\u0012."+
-		".11\u0002\u0000..11\u0002\u0000\u0012\u0012%&\u01f6\u0000l\u0001\u0000"+
-		"\u0000\u0000\u0002v\u0001\u0000\u0000\u0000\u0004z\u0001\u0000\u0000\u0000"+
-		"\u0006}\u0001\u0000\u0000\u0000\b\u0085\u0001\u0000\u0000\u0000\n\u0088"+
-		"\u0001\u0000\u0000\u0000\f\u008f\u0001\u0000\u0000\u0000\u000e\u0096\u0001"+
-		"\u0000\u0000\u0000\u0010\u009d\u0001\u0000\u0000\u0000\u0012\u00a1\u0001"+
-		"\u0000\u0000\u0000\u0014\u00a3\u0001\u0000\u0000\u0000\u0016\u00a5\u0001"+
-		"\u0000\u0000\u0000\u0018\u00a7\u0001\u0000\u0000\u0000\u001a\u00ad\u0001"+
-		"\u0000\u0000\u0000\u001c\u00ba\u0001\u0000\u0000\u0000\u001e\u00c7\u0001"+
-		"\u0000\u0000\u0000 \u00c9\u0001\u0000\u0000\u0000\"\u00cb\u0001\u0000"+
-		"\u0000\u0000$\u00d1\u0001\u0000\u0000\u0000&\u00da\u0001\u0000\u0000\u0000"+
-		"(\u00e9\u0001\u0000\u0000\u0000*\u00f1\u0001\u0000\u0000\u0000,\u00f3"+
-		"\u0001\u0000\u0000\u0000.\u00f9\u0001\u0000\u0000\u00000\u0102\u0001\u0000"+
-		"\u0000\u00002\u0107\u0001\u0000\u0000\u00004\u011b\u0001\u0000\u0000\u0000"+
-		"6\u0123\u0001\u0000\u0000\u00008\u0126\u0001\u0000\u0000\u0000:\u012a"+
-		"\u0001\u0000\u0000\u0000<\u0130\u0001\u0000\u0000\u0000>\u0135\u0001\u0000"+
-		"\u0000\u0000@\u0145\u0001\u0000\u0000\u0000B\u0153\u0001\u0000\u0000\u0000"+
-		"D\u0157\u0001\u0000\u0000\u0000F\u0159\u0001\u0000\u0000\u0000H\u0161"+
-		"\u0001\u0000\u0000\u0000J\u016c\u0001\u0000\u0000\u0000L\u016e\u0001\u0000"+
-		"\u0000\u0000N\u0176\u0001\u0000\u0000\u0000P\u017e\u0001\u0000\u0000\u0000"+
-		"R\u0189\u0001\u0000\u0000\u0000T\u018b\u0001\u0000\u0000\u0000V\u0193"+
-		"\u0001\u0000\u0000\u0000X\u01aa\u0001\u0000\u0000\u0000Z\u01ac\u0001\u0000"+
-		"\u0000\u0000\\\u01b4\u0001\u0000\u0000\u0000^\u01c1\u0001\u0000\u0000"+
-		"\u0000`\u01c4\u0001\u0000\u0000\u0000b\u01d1\u0001\u0000\u0000\u0000d"+
-		"\u01d9\u0001\u0000\u0000\u0000f\u01e1\u0001\u0000\u0000\u0000h\u01e4\u0001"+
-		"\u0000\u0000\u0000j\u01ea\u0001\u0000\u0000\u0000lp\u0003\u0002\u0001"+
-		"\u0000mo\u0003^/\u0000nm\u0001\u0000\u0000\u0000or\u0001\u0000\u0000\u0000"+
-		"pn\u0001\u0000\u0000\u0000pq\u0001\u0000\u0000\u0000qs\u0001\u0000\u0000"+
+		"\u0001+\u0001+\u0001+\u0005+\u019e\b+\n+\f+\u01a1\t+\u0001,\u0001,\u0001"+
+		",\u0001,\u0001,\u0001,\u0003,\u01a9\b,\u0001-\u0001-\u0001-\u0005-\u01ae"+
+		"\b-\n-\f-\u01b1\t-\u0001.\u0001.\u0001.\u0001.\u0005.\u01b7\b.\n.\f.\u01ba"+
+		"\t.\u0001.\u0001.\u0001/\u0001/\u0003/\u01c0\b/\u00010\u00030\u01c3\b"+
+		"0\u00010\u00010\u00010\u00050\u01c8\b0\n0\f0\u01cb\t0\u00010\u00010\u0001"+
+		"0\u00011\u00011\u00011\u00051\u01d3\b1\n1\f1\u01d6\t1\u00012\u00012\u0001"+
+		"2\u00012\u00032\u01dc\b2\u00012\u00012\u00013\u00013\u00013\u00014\u0001"+
+		"4\u00014\u00014\u00014\u00014\u00015\u00015\u00015\u00015\u00015\u0001"+
+		"5\u00015\u00015\u00015\u00015\u0000\u00006\u0000\u0002\u0004\u0006\b\n"+
+		"\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.0246"+
+		"8:<>@BDFHJLNPRTVXZ\\^`bdfhj\u0000\u0006\u0001\u0000\u0004\u0005\u0001"+
+		"\u0000\u0006\u0007\u0001\u0000\r\u000f\u0003\u0000\u0012\u0012--00\u0002"+
+		"\u0000--00\u0002\u0000\u0012\u0012%&\u01f3\u0000l\u0001\u0000\u0000\u0000"+
+		"\u0002v\u0001\u0000\u0000\u0000\u0004z\u0001\u0000\u0000\u0000\u0006}"+
+		"\u0001\u0000\u0000\u0000\b\u0085\u0001\u0000\u0000\u0000\n\u0088\u0001"+
+		"\u0000\u0000\u0000\f\u008f\u0001\u0000\u0000\u0000\u000e\u0096\u0001\u0000"+
+		"\u0000\u0000\u0010\u009d\u0001\u0000\u0000\u0000\u0012\u00a1\u0001\u0000"+
+		"\u0000\u0000\u0014\u00a3\u0001\u0000\u0000\u0000\u0016\u00a5\u0001\u0000"+
+		"\u0000\u0000\u0018\u00a7\u0001\u0000\u0000\u0000\u001a\u00ad\u0001\u0000"+
+		"\u0000\u0000\u001c\u00ba\u0001\u0000\u0000\u0000\u001e\u00c7\u0001\u0000"+
+		"\u0000\u0000 \u00c9\u0001\u0000\u0000\u0000\"\u00cb\u0001\u0000\u0000"+
+		"\u0000$\u00d1\u0001\u0000\u0000\u0000&\u00da\u0001\u0000\u0000\u0000("+
+		"\u00e9\u0001\u0000\u0000\u0000*\u00f1\u0001\u0000\u0000\u0000,\u00f3\u0001"+
+		"\u0000\u0000\u0000.\u00f9\u0001\u0000\u0000\u00000\u0102\u0001\u0000\u0000"+
+		"\u00002\u0107\u0001\u0000\u0000\u00004\u011b\u0001\u0000\u0000\u00006"+
+		"\u0123\u0001\u0000\u0000\u00008\u0126\u0001\u0000\u0000\u0000:\u012a\u0001"+
+		"\u0000\u0000\u0000<\u0130\u0001\u0000\u0000\u0000>\u0135\u0001\u0000\u0000"+
+		"\u0000@\u0145\u0001\u0000\u0000\u0000B\u0153\u0001\u0000\u0000\u0000D"+
+		"\u0157\u0001\u0000\u0000\u0000F\u0159\u0001\u0000\u0000\u0000H\u0161\u0001"+
+		"\u0000\u0000\u0000J\u016c\u0001\u0000\u0000\u0000L\u016e\u0001\u0000\u0000"+
+		"\u0000N\u0176\u0001\u0000\u0000\u0000P\u017e\u0001\u0000\u0000\u0000R"+
+		"\u0189\u0001\u0000\u0000\u0000T\u018b\u0001\u0000\u0000\u0000V\u0193\u0001"+
+		"\u0000\u0000\u0000X\u01a8\u0001\u0000\u0000\u0000Z\u01aa\u0001\u0000\u0000"+
+		"\u0000\\\u01b2\u0001\u0000\u0000\u0000^\u01bf\u0001\u0000\u0000\u0000"+
+		"`\u01c2\u0001\u0000\u0000\u0000b\u01cf\u0001\u0000\u0000\u0000d\u01d7"+
+		"\u0001\u0000\u0000\u0000f\u01df\u0001\u0000\u0000\u0000h\u01e2\u0001\u0000"+
+		"\u0000\u0000j\u01e8\u0001\u0000\u0000\u0000lp\u0003\u0002\u0001\u0000"+
+		"mo\u0003^/\u0000nm\u0001\u0000\u0000\u0000or\u0001\u0000\u0000\u0000p"+
+		"n\u0001\u0000\u0000\u0000pq\u0001\u0000\u0000\u0000qs\u0001\u0000\u0000"+
 		"\u0000rp\u0001\u0000\u0000\u0000st\u0005\u0000\u0000\u0001t\u0001\u0001"+
 		"\u0000\u0000\u0000uw\u0003\u0004\u0002\u0000vu\u0001\u0000\u0000\u0000"+
 		"vw\u0001\u0000\u0000\u0000wx\u0001\u0000\u0000\u0000xy\u0003\u0006\u0003"+
 		"\u0000y\u0003\u0001\u0000\u0000\u0000z{\u0005\u0001\u0000\u0000{|\u0005"+
-		"1\u0000\u0000|\u0005\u0001\u0000\u0000\u0000}~\u0003\b\u0004\u0000~\u007f"+
+		"0\u0000\u0000|\u0005\u0001\u0000\u0000\u0000}~\u0003\b\u0004\u0000~\u007f"+
 		"\u0003\u0010\b\u0000\u007f\u0007\u0001\u0000\u0000\u0000\u0080\u0084\u0003"+
 		"\n\u0005\u0000\u0081\u0084\u0003\f\u0006\u0000\u0082\u0084\u0003\u000e"+
 		"\u0007\u0000\u0083\u0080\u0001\u0000\u0000\u0000\u0083\u0081\u0001\u0000"+
@@ -3383,24 +3803,24 @@ public class SLParser extends Parser {
 		"\u0000\u0000\u00a0\u0011\u0001\u0000\u0000\u0000\u00a1\u00a2\u0007\u0000"+
 		"\u0000\u0000\u00a2\u0013\u0001\u0000\u0000\u0000\u00a3\u00a4\u0007\u0001"+
 		"\u0000\u0000\u00a4\u0015\u0001\u0000\u0000\u0000\u00a5\u00a6\u0005\b\u0000"+
-		"\u0000\u00a6\u0017\u0001\u0000\u0000\u0000\u00a7\u00a8\u00051\u0000\u0000"+
+		"\u0000\u00a6\u0017\u0001\u0000\u0000\u0000\u00a7\u00a8\u00050\u0000\u0000"+
 		"\u00a8\u00a9\u0005\t\u0000\u0000\u00a9\u00ab\u0003\u001e\u000f\u0000\u00aa"+
 		"\u00ac\u0005\n\u0000\u0000\u00ab\u00aa\u0001\u0000\u0000\u0000\u00ab\u00ac"+
 		"\u0001\u0000\u0000\u0000\u00ac\u0019\u0001\u0000\u0000\u0000\u00ad\u00b2"+
-		"\u00051\u0000\u0000\u00ae\u00af\u0005\u000b\u0000\u0000\u00af\u00b1\u0005"+
-		"1\u0000\u0000\u00b0\u00ae\u0001\u0000\u0000\u0000\u00b1\u00b4\u0001\u0000"+
+		"\u00050\u0000\u0000\u00ae\u00af\u0005\u000b\u0000\u0000\u00af\u00b1\u0005"+
+		"0\u0000\u0000\u00b0\u00ae\u0001\u0000\u0000\u0000\u00b1\u00b4\u0001\u0000"+
 		"\u0000\u0000\u00b2\u00b0\u0001\u0000\u0000\u0000\u00b2\u00b3\u0001\u0000"+
 		"\u0000\u0000\u00b3\u00b5\u0001\u0000\u0000\u0000\u00b4\u00b2\u0001\u0000"+
 		"\u0000\u0000\u00b5\u00b6\u0005\t\u0000\u0000\u00b6\u00b8\u0003\u001e\u000f"+
 		"\u0000\u00b7\u00b9\u0005\n\u0000\u0000\u00b8\u00b7\u0001\u0000\u0000\u0000"+
 		"\u00b8\u00b9\u0001\u0000\u0000\u0000\u00b9\u001b\u0001\u0000\u0000\u0000"+
-		"\u00ba\u00bb\u00051\u0000\u0000\u00bb\u00be\u0005\f\u0000\u0000\u00bc"+
-		"\u00bf\u0003.\u0017\u0000\u00bd\u00bf\u00051\u0000\u0000\u00be\u00bc\u0001"+
+		"\u00ba\u00bb\u00050\u0000\u0000\u00bb\u00be\u0005\f\u0000\u0000\u00bc"+
+		"\u00bf\u0003.\u0017\u0000\u00bd\u00bf\u00050\u0000\u0000\u00be\u00bc\u0001"+
 		"\u0000\u0000\u0000\u00be\u00bd\u0001\u0000\u0000\u0000\u00bf\u00c1\u0001"+
 		"\u0000\u0000\u0000\u00c0\u00c2\u0005\n\u0000\u0000\u00c1\u00c0\u0001\u0000"+
 		"\u0000\u0000\u00c1\u00c2\u0001\u0000\u0000\u0000\u00c2\u001d\u0001\u0000"+
 		"\u0000\u0000\u00c3\u00c8\u0003 \u0010\u0000\u00c4\u00c8\u0003\"\u0011"+
-		"\u0000\u00c5\u00c8\u0003$\u0012\u0000\u00c6\u00c8\u00051\u0000\u0000\u00c7"+
+		"\u0000\u00c5\u00c8\u0003$\u0012\u0000\u00c6\u00c8\u00050\u0000\u0000\u00c7"+
 		"\u00c3\u0001\u0000\u0000\u0000\u00c7\u00c4\u0001\u0000\u0000\u0000\u00c7"+
 		"\u00c5\u0001\u0000\u0000\u0000\u00c7\u00c6\u0001\u0000\u0000\u0000\u00c8"+
 		"\u001f\u0001\u0000\u0000\u0000\u00c9\u00ca\u0007\u0002\u0000\u0000\u00ca"+
@@ -3426,8 +3846,8 @@ public class SLParser extends Parser {
 		"\u0001\u0000\u0000\u0000\u00ef)\u0001\u0000\u0000\u0000\u00f0\u00ee\u0001"+
 		"\u0000\u0000\u0000\u00f1\u00f2\u0007\u0004\u0000\u0000\u00f2+\u0001\u0000"+
 		"\u0000\u0000\u00f3\u00f4\u0005\u0012\u0000\u0000\u00f4-\u0001\u0000\u0000"+
-		"\u0000\u00f5\u00fa\u0005.\u0000\u0000\u00f6\u00fa\u0005/\u0000\u0000\u00f7"+
-		"\u00fa\u00050\u0000\u0000\u00f8\u00fa\u0003\\.\u0000\u00f9\u00f5\u0001"+
+		"\u0000\u00f5\u00fa\u0005-\u0000\u0000\u00f6\u00fa\u0005.\u0000\u0000\u00f7"+
+		"\u00fa\u0005/\u0000\u0000\u00f8\u00fa\u0003\\.\u0000\u00f9\u00f5\u0001"+
 		"\u0000\u0000\u0000\u00f9\u00f6\u0001\u0000\u0000\u0000\u00f9\u00f7\u0001"+
 		"\u0000\u0000\u0000\u00f9\u00f8\u0001\u0000\u0000\u0000\u00fa/\u0001\u0000"+
 		"\u0000\u0000\u00fb\u0103\u00032\u0019\u0000\u00fc\u0103\u0003:\u001d\u0000"+
@@ -3471,13 +3891,13 @@ public class SLParser extends Parser {
 		"\u0000\u0141\u013f\u0001\u0000\u0000\u0000\u0141\u0142\u0001\u0000\u0000"+
 		"\u0000\u0142\u0143\u0001\u0000\u0000\u0000\u0143\u0144\u0005\u0018\u0000"+
 		"\u0000\u0144?\u0001\u0000\u0000\u0000\u0145\u0146\u0005 \u0000\u0000\u0146"+
-		"\u0147\u00051\u0000\u0000\u0147\u0148\u0005\f\u0000\u0000\u0148\u0149"+
+		"\u0147\u00050\u0000\u0000\u0147\u0148\u0005\f\u0000\u0000\u0148\u0149"+
 		"\u0003D\"\u0000\u0149\u014a\u0005\u001d\u0000\u0000\u014a\u014d\u0003"+
 		"D\"\u0000\u014b\u014c\u0005!\u0000\u0000\u014c\u014e\u0003D\"\u0000\u014d"+
 		"\u014b\u0001\u0000\u0000\u0000\u014d\u014e\u0001\u0000\u0000\u0000\u014e"+
 		"\u014f\u0001\u0000\u0000\u0000\u014f\u0150\u0005\u0016\u0000\u0000\u0150"+
 		"\u0151\u00036\u001b\u0000\u0151\u0152\u0005\u0018\u0000\u0000\u0152A\u0001"+
-		"\u0000\u0000\u0000\u0153\u0154\u00051\u0000\u0000\u0154\u0155\u0005\f"+
+		"\u0000\u0000\u0000\u0153\u0154\u00050\u0000\u0000\u0154\u0155\u0005\f"+
 		"\u0000\u0000\u0155\u0156\u0003D\"\u0000\u0156C\u0001\u0000\u0000\u0000"+
 		"\u0157\u0158\u0003F#\u0000\u0158E\u0001\u0000\u0000\u0000\u0159\u015e"+
 		"\u0003H$\u0000\u015a\u015b\u0005\"\u0000\u0000\u015b\u015d\u0003H$\u0000"+
@@ -3491,11 +3911,11 @@ public class SLParser extends Parser {
 		"\u0169\u016a\u0005$\u0000\u0000\u016a\u016d\u0003J%\u0000\u016b\u016d"+
 		"\u0003L&\u0000\u016c\u0169\u0001\u0000\u0000\u0000\u016c\u016b\u0001\u0000"+
 		"\u0000\u0000\u016dK\u0001\u0000\u0000\u0000\u016e\u0173\u0003N\'\u0000"+
-		"\u016f\u0170\u0005,\u0000\u0000\u0170\u0172\u0003N\'\u0000\u0171\u016f"+
+		"\u016f\u0170\u0005+\u0000\u0000\u0170\u0172\u0003N\'\u0000\u0171\u016f"+
 		"\u0001\u0000\u0000\u0000\u0172\u0175\u0001\u0000\u0000\u0000\u0173\u0171"+
 		"\u0001\u0000\u0000\u0000\u0173\u0174\u0001\u0000\u0000\u0000\u0174M\u0001"+
 		"\u0000\u0000\u0000\u0175\u0173\u0001\u0000\u0000\u0000\u0176\u017b\u0003"+
-		"P(\u0000\u0177\u0178\u0005-\u0000\u0000\u0178\u017a\u0003P(\u0000\u0179"+
+		"P(\u0000\u0177\u0178\u0005,\u0000\u0000\u0178\u017a\u0003P(\u0000\u0179"+
 		"\u0177\u0001\u0000\u0000\u0000\u017a\u017d\u0001\u0000\u0000\u0000\u017b"+
 		"\u0179\u0001\u0000\u0000\u0000\u017b\u017c\u0001\u0000\u0000\u0000\u017c"+
 		"O\u0001\u0000\u0000\u0000\u017d\u017b\u0001\u0000\u0000\u0000\u017e\u0183"+
@@ -3503,67 +3923,66 @@ public class SLParser extends Parser {
 		")\u0000\u0181\u017f\u0001\u0000\u0000\u0000\u0182\u0185\u0001\u0000\u0000"+
 		"\u0000\u0183\u0181\u0001\u0000\u0000\u0000\u0183\u0184\u0001\u0000\u0000"+
 		"\u0000\u0184Q\u0001\u0000\u0000\u0000\u0185\u0183\u0001\u0000\u0000\u0000"+
-		"\u0186\u0187\u0005-\u0000\u0000\u0187\u018a\u0003R)\u0000\u0188\u018a"+
+		"\u0186\u0187\u0005,\u0000\u0000\u0187\u018a\u0003R)\u0000\u0188\u018a"+
 		"\u0003T*\u0000\u0189\u0186\u0001\u0000\u0000\u0000\u0189\u0188\u0001\u0000"+
 		"\u0000\u0000\u018aS\u0001\u0000\u0000\u0000\u018b\u0190\u0003V+\u0000"+
 		"\u018c\u018d\u0005\'\u0000\u0000\u018d\u018f\u0003V+\u0000\u018e\u018c"+
 		"\u0001\u0000\u0000\u0000\u018f\u0192\u0001\u0000\u0000\u0000\u0190\u018e"+
 		"\u0001\u0000\u0000\u0000\u0190\u0191\u0001\u0000\u0000\u0000\u0191U\u0001"+
-		"\u0000\u0000\u0000\u0192\u0190\u0001\u0000\u0000\u0000\u0193\u01a1\u0003"+
+		"\u0000\u0000\u0000\u0192\u0190\u0001\u0000\u0000\u0000\u0193\u019f\u0003"+
 		"X,\u0000\u0194\u0196\u0005\u0019\u0000\u0000\u0195\u0197\u0003Z-\u0000"+
 		"\u0196\u0195\u0001\u0000\u0000\u0000\u0196\u0197\u0001\u0000\u0000\u0000"+
-		"\u0197\u0198\u0001\u0000\u0000\u0000\u0198\u01a0\u0005\u001a\u0000\u0000"+
+		"\u0197\u0198\u0001\u0000\u0000\u0000\u0198\u019e\u0005\u001a\u0000\u0000"+
 		"\u0199\u019a\u0005\u0011\u0000\u0000\u019a\u019b\u0003D\"\u0000\u019b"+
-		"\u019c\u0005\u0013\u0000\u0000\u019c\u01a0\u0001\u0000\u0000\u0000\u019d"+
-		"\u019e\u0005(\u0000\u0000\u019e\u01a0\u00051\u0000\u0000\u019f\u0194\u0001"+
-		"\u0000\u0000\u0000\u019f\u0199\u0001\u0000\u0000\u0000\u019f\u019d\u0001"+
-		"\u0000\u0000\u0000\u01a0\u01a3\u0001\u0000\u0000\u0000\u01a1\u019f\u0001"+
-		"\u0000\u0000\u0000\u01a1\u01a2\u0001\u0000\u0000\u0000\u01a2W\u0001\u0000"+
-		"\u0000\u0000\u01a3\u01a1\u0001\u0000\u0000\u0000\u01a4\u01ab\u0003.\u0017"+
-		"\u0000\u01a5\u01ab\u00051\u0000\u0000\u01a6\u01a7\u0005\u0019\u0000\u0000"+
-		"\u01a7\u01a8\u0003D\"\u0000\u01a8\u01a9\u0005\u001a\u0000\u0000\u01a9"+
-		"\u01ab\u0001\u0000\u0000\u0000\u01aa\u01a4\u0001\u0000\u0000\u0000\u01aa"+
-		"\u01a5\u0001\u0000\u0000\u0000\u01aa\u01a6\u0001\u0000\u0000\u0000\u01ab"+
-		"Y\u0001\u0000\u0000\u0000\u01ac\u01b1\u0003D\"\u0000\u01ad\u01ae\u0005"+
-		"\u000b\u0000\u0000\u01ae\u01b0\u0003D\"\u0000\u01af\u01ad\u0001\u0000"+
-		"\u0000\u0000\u01b0\u01b3\u0001\u0000\u0000\u0000\u01b1\u01af\u0001\u0000"+
-		"\u0000\u0000\u01b1\u01b2\u0001\u0000\u0000\u0000\u01b2[\u0001\u0000\u0000"+
-		"\u0000\u01b3\u01b1\u0001\u0000\u0000\u0000\u01b4\u01b5\u0005\u0016\u0000"+
-		"\u0000\u01b5\u01ba\u0003D\"\u0000\u01b6\u01b7\u0005\u000b\u0000\u0000"+
-		"\u01b7\u01b9\u0003D\"\u0000\u01b8\u01b6\u0001\u0000\u0000\u0000\u01b9"+
-		"\u01bc\u0001\u0000\u0000\u0000\u01ba\u01b8\u0001\u0000\u0000\u0000\u01ba"+
-		"\u01bb\u0001\u0000\u0000\u0000\u01bb\u01bd\u0001\u0000\u0000\u0000\u01bc"+
-		"\u01ba\u0001\u0000\u0000\u0000\u01bd\u01be\u0005\u0018\u0000\u0000\u01be"+
-		"]\u0001\u0000\u0000\u0000\u01bf\u01c2\u0003h4\u0000\u01c0\u01c2\u0003"+
-		"j5\u0000\u01c1\u01bf\u0001\u0000\u0000\u0000\u01c1\u01c0\u0001\u0000\u0000"+
-		"\u0000\u01c2_\u0001\u0000\u0000\u0000\u01c3\u01c5\u0005)\u0000\u0000\u01c4"+
-		"\u01c3\u0001\u0000\u0000\u0000\u01c4\u01c5\u0001\u0000\u0000\u0000\u01c5"+
-		"\u01c6\u0001\u0000\u0000\u0000\u01c6\u01cb\u00051\u0000\u0000\u01c7\u01c8"+
-		"\u0005\u000b\u0000\u0000\u01c8\u01ca\u00051\u0000\u0000\u01c9\u01c7\u0001"+
-		"\u0000\u0000\u0000\u01ca\u01cd\u0001\u0000\u0000\u0000\u01cb\u01c9\u0001"+
-		"\u0000\u0000\u0000\u01cb\u01cc\u0001\u0000\u0000\u0000\u01cc\u01ce\u0001"+
-		"\u0000\u0000\u0000\u01cd\u01cb\u0001\u0000\u0000\u0000\u01ce\u01cf\u0005"+
-		"\t\u0000\u0000\u01cf\u01d0\u0003\u001e\u000f\u0000\u01d0a\u0001\u0000"+
-		"\u0000\u0000\u01d1\u01d6\u0003`0\u0000\u01d2\u01d3\u0005\n\u0000\u0000"+
-		"\u01d3\u01d5\u0003`0\u0000\u01d4\u01d2\u0001\u0000\u0000\u0000\u01d5\u01d8"+
-		"\u0001\u0000\u0000\u0000\u01d6\u01d4\u0001\u0000\u0000\u0000\u01d6\u01d7"+
-		"\u0001\u0000\u0000\u0000\u01d7c\u0001\u0000\u0000\u0000\u01d8\u01d6\u0001"+
-		"\u0000\u0000\u0000\u01d9\u01da\u0005*\u0000\u0000\u01da\u01db\u00051\u0000"+
-		"\u0000\u01db\u01dd\u0005\u0019\u0000\u0000\u01dc\u01de\u0003b1\u0000\u01dd"+
-		"\u01dc\u0001\u0000\u0000\u0000\u01dd\u01de\u0001\u0000\u0000\u0000\u01de"+
-		"\u01df\u0001\u0000\u0000\u0000\u01df\u01e0\u0005\u001a\u0000\u0000\u01e0"+
-		"e\u0001\u0000\u0000\u0000\u01e1\u01e2\u0005+\u0000\u0000\u01e2\u01e3\u0003"+
-		"D\"\u0000\u01e3g\u0001\u0000\u0000\u0000\u01e4\u01e5\u0003d2\u0000\u01e5"+
-		"\u01e6\u0003\b\u0004\u0000\u01e6\u01e7\u0005\u0002\u0000\u0000\u01e7\u01e8"+
-		"\u00036\u001b\u0000\u01e8\u01e9\u0005\u0003\u0000\u0000\u01e9i\u0001\u0000"+
-		"\u0000\u0000\u01ea\u01eb\u0003d2\u0000\u01eb\u01ec\u0005+\u0000\u0000"+
-		"\u01ec\u01ed\u0003\u001e\u000f\u0000\u01ed\u01ee\u0003\b\u0004\u0000\u01ee"+
-		"\u01ef\u0005\u0002\u0000\u0000\u01ef\u01f0\u00036\u001b\u0000\u01f0\u01f1"+
-		"\u0003f3\u0000\u01f1\u01f2\u0005\u0003\u0000\u0000\u01f2k\u0001\u0000"+
-		"\u0000\u0000-pv\u0083\u0085\u008c\u0093\u009a\u00ab\u00b2\u00b8\u00be"+
-		"\u00c1\u00c7\u00d5\u00df\u00e6\u00ee\u00f9\u0102\u0105\u0112\u0117\u0123"+
-		"\u013d\u0141\u014d\u015e\u0166\u016c\u0173\u017b\u0183\u0189\u0190\u0196"+
-		"\u019f\u01a1\u01aa\u01b1\u01ba\u01c1\u01c4\u01cb\u01d6\u01dd";
+		"\u019c\u0005\u0013\u0000\u0000\u019c\u019e\u0001\u0000\u0000\u0000\u019d"+
+		"\u0194\u0001\u0000\u0000\u0000\u019d\u0199\u0001\u0000\u0000\u0000\u019e"+
+		"\u01a1\u0001\u0000\u0000\u0000\u019f\u019d\u0001\u0000\u0000\u0000\u019f"+
+		"\u01a0\u0001\u0000\u0000\u0000\u01a0W\u0001\u0000\u0000\u0000\u01a1\u019f"+
+		"\u0001\u0000\u0000\u0000\u01a2\u01a9\u0003.\u0017\u0000\u01a3\u01a9\u0005"+
+		"0\u0000\u0000\u01a4\u01a5\u0005\u0019\u0000\u0000\u01a5\u01a6\u0003D\""+
+		"\u0000\u01a6\u01a7\u0005\u001a\u0000\u0000\u01a7\u01a9\u0001\u0000\u0000"+
+		"\u0000\u01a8\u01a2\u0001\u0000\u0000\u0000\u01a8\u01a3\u0001\u0000\u0000"+
+		"\u0000\u01a8\u01a4\u0001\u0000\u0000\u0000\u01a9Y\u0001\u0000\u0000\u0000"+
+		"\u01aa\u01af\u0003D\"\u0000\u01ab\u01ac\u0005\u000b\u0000\u0000\u01ac"+
+		"\u01ae\u0003D\"\u0000\u01ad\u01ab\u0001\u0000\u0000\u0000\u01ae\u01b1"+
+		"\u0001\u0000\u0000\u0000\u01af\u01ad\u0001\u0000\u0000\u0000\u01af\u01b0"+
+		"\u0001\u0000\u0000\u0000\u01b0[\u0001\u0000\u0000\u0000\u01b1\u01af\u0001"+
+		"\u0000\u0000\u0000\u01b2\u01b3\u0005\u0016\u0000\u0000\u01b3\u01b8\u0003"+
+		"D\"\u0000\u01b4\u01b5\u0005\u000b\u0000\u0000\u01b5\u01b7\u0003D\"\u0000"+
+		"\u01b6\u01b4\u0001\u0000\u0000\u0000\u01b7\u01ba\u0001\u0000\u0000\u0000"+
+		"\u01b8\u01b6\u0001\u0000\u0000\u0000\u01b8\u01b9\u0001\u0000\u0000\u0000"+
+		"\u01b9\u01bb\u0001\u0000\u0000\u0000\u01ba\u01b8\u0001\u0000\u0000\u0000"+
+		"\u01bb\u01bc\u0005\u0018\u0000\u0000\u01bc]\u0001\u0000\u0000\u0000\u01bd"+
+		"\u01c0\u0003h4\u0000\u01be\u01c0\u0003j5\u0000\u01bf\u01bd\u0001\u0000"+
+		"\u0000\u0000\u01bf\u01be\u0001\u0000\u0000\u0000\u01c0_\u0001\u0000\u0000"+
+		"\u0000\u01c1\u01c3\u0005(\u0000\u0000\u01c2\u01c1\u0001\u0000\u0000\u0000"+
+		"\u01c2\u01c3\u0001\u0000\u0000\u0000\u01c3\u01c4\u0001\u0000\u0000\u0000"+
+		"\u01c4\u01c9\u00050\u0000\u0000\u01c5\u01c6\u0005\u000b\u0000\u0000\u01c6"+
+		"\u01c8\u00050\u0000\u0000\u01c7\u01c5\u0001\u0000\u0000\u0000\u01c8\u01cb"+
+		"\u0001\u0000\u0000\u0000\u01c9\u01c7\u0001\u0000\u0000\u0000\u01c9\u01ca"+
+		"\u0001\u0000\u0000\u0000\u01ca\u01cc\u0001\u0000\u0000\u0000\u01cb\u01c9"+
+		"\u0001\u0000\u0000\u0000\u01cc\u01cd\u0005\t\u0000\u0000\u01cd\u01ce\u0003"+
+		"\u001e\u000f\u0000\u01cea\u0001\u0000\u0000\u0000\u01cf\u01d4\u0003`0"+
+		"\u0000\u01d0\u01d1\u0005\n\u0000\u0000\u01d1\u01d3\u0003`0\u0000\u01d2"+
+		"\u01d0\u0001\u0000\u0000\u0000\u01d3\u01d6\u0001\u0000\u0000\u0000\u01d4"+
+		"\u01d2\u0001\u0000\u0000\u0000\u01d4\u01d5\u0001\u0000\u0000\u0000\u01d5"+
+		"c\u0001\u0000\u0000\u0000\u01d6\u01d4\u0001\u0000\u0000\u0000\u01d7\u01d8"+
+		"\u0005)\u0000\u0000\u01d8\u01d9\u00050\u0000\u0000\u01d9\u01db\u0005\u0019"+
+		"\u0000\u0000\u01da\u01dc\u0003b1\u0000\u01db\u01da\u0001\u0000\u0000\u0000"+
+		"\u01db\u01dc\u0001\u0000\u0000\u0000\u01dc\u01dd\u0001\u0000\u0000\u0000"+
+		"\u01dd\u01de\u0005\u001a\u0000\u0000\u01dee\u0001\u0000\u0000\u0000\u01df"+
+		"\u01e0\u0005*\u0000\u0000\u01e0\u01e1\u0003D\"\u0000\u01e1g\u0001\u0000"+
+		"\u0000\u0000\u01e2\u01e3\u0003d2\u0000\u01e3\u01e4\u0003\b\u0004\u0000"+
+		"\u01e4\u01e5\u0005\u0002\u0000\u0000\u01e5\u01e6\u00036\u001b\u0000\u01e6"+
+		"\u01e7\u0005\u0003\u0000\u0000\u01e7i\u0001\u0000\u0000\u0000\u01e8\u01e9"+
+		"\u0003d2\u0000\u01e9\u01ea\u0005*\u0000\u0000\u01ea\u01eb\u0003\u001e"+
+		"\u000f\u0000\u01eb\u01ec\u0003\b\u0004\u0000\u01ec\u01ed\u0005\u0002\u0000"+
+		"\u0000\u01ed\u01ee\u00036\u001b\u0000\u01ee\u01ef\u0003f3\u0000\u01ef"+
+		"\u01f0\u0005\u0003\u0000\u0000\u01f0k\u0001\u0000\u0000\u0000-pv\u0083"+
+		"\u0085\u008c\u0093\u009a\u00ab\u00b2\u00b8\u00be\u00c1\u00c7\u00d5\u00df"+
+		"\u00e6\u00ee\u00f9\u0102\u0105\u0112\u0117\u0123\u013d\u0141\u014d\u015e"+
+		"\u0166\u016c\u0173\u017b\u0183\u0189\u0190\u0196\u019d\u019f\u01a8\u01af"+
+		"\u01b8\u01bf\u01c2\u01c9\u01d4\u01db";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

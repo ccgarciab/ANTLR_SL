@@ -50,7 +50,8 @@ public class FuncionDefinida implements Funcion {
         }
 
         EjecutorDeProcedimientos ejecutor = new EjecutorDeProcedimientos(this.referenciasGlobales, this.referenciasLocales, this.funciones);
+        ejecutor.visitSentencias(this.sentencias);
 
-        return null;
+        return ejecutor.visitRetorno(this.retorno);
     }
 }

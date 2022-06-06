@@ -2,6 +2,7 @@ package Visitors;
 
 import Funcion.Funcion;
 import Funcion.SubrutinaDefinida;
+import Funcion.*;
 import Gen.SLBaseVisitor;
 import Gen.SLParser;
 import Tipo.*;
@@ -49,10 +50,13 @@ public class CompiladorPrograma extends SLBaseVisitor<Void> {
                 );
 
         funciones.put("$main", principal);
+        funciones.put("imprimir", new Imprimir());
     }
 
     public void procesarDeclaraciones(SLParser.DeclaracionesContext ctx) {
-
+        if(ctx == null || ctx.children== null) {
+            return;
+        }
         for(ParseTree child: ctx.children){
             if(child instanceof SLParser.TiposContext){
                 SLParser.TiposContext tiposCtx = (SLParser.TiposContext) child;
