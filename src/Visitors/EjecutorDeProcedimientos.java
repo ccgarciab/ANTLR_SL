@@ -4,8 +4,13 @@ import Gen.SLBaseVisitor;
 import Gen.SLParser;
 import Valor.Valor;
 import Funcion.Funcion;
-import java.util.Map;
 import Tipo.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
 
@@ -37,15 +42,15 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
 
     @Override public Valor visitMientras(SLParser.MientrasContext ctx) {
         while ((Boolean)visitCondicion(ctx.condicion()).valor){
-            for (SLParser.SentenciaContext sentencia : ctx.sentencia()) {
+            for (SLParser.SentenciaContext sentencia : ctx.sentencias().sentencia()) {
                 visitSentencia(sentencia);
             }
         }
         return null;
     }
-    @Override public Valor visitRepetir_hasta(SLParser.Repetir_hastaContext ctx) { 
+    @Override public Valor visitRepetir_hasta(SLParser.Repetir_hastaContext ctx) {
         do {
-            for (SLParser.SentenciaContext sentencia : ctx.sentencia()) {
+            for (SLParser.SentenciaContext sentencia : ctx.sentencias().sentencia()) {
                 visitSentencia(sentencia);
             }
         } while ((Boolean) visitCondicion(ctx.condicion()).valor);
@@ -59,25 +64,27 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         limite = (Integer)this.visitExpr(ctx.expr(1)).valor;
         if (this.visitExpr(ctx.expr(2)) != null){
             paso = (Integer)this.visitExpr(ctx.expr(2)).valor;
+        }else{
+            paso =  1;
         }
-        paso =  1;
         for (int i = inicio; i < limite; i+=paso) {
-            this.referenciasLocales.put(cadena, new Valor(new TipoNumerico(), false, new Integer(i)));
-            for (SLParser.SentenciaContext sentencia : ctx.sentencia()) {
+            this.referenciasLocales.put(cadena, new Valor(new TipoNumerico(), false, i));
+            for (SLParser.SentenciaContext sentencia : ctx.sentencias().sentencia()) {
                 visitSentencia(sentencia);
             }
         }
         return null;
     }
-    @Override public T visitSi(SLParser.SiContext ctx) {
-        if ((Boolean) visitCondicion(ctx.condicion()).valor) {
-            for (SLParser.SentenciaContext sentencia : ctx.sentencia()) {
-                visitSentencias(sentencia);
+    @Override public Valor visitSi(SLParser.SiContext ctx) {
+        int i = 0;
+        for (;i < ctx.condicion().size(); i++) {
+            if ((Boolean) visitCondicion(ctx.condicion(i)).valor) {
+                visitSentencias(ctx.sentencias(i));
+                return null;
             }
-        } else {
-            for (SLParser.SentenciaContext sentencia : ctx.sentencia()) {
-                visitSentencias(sentencia);
-            }
+        }
+        if (i<ctx.sentencias().size()){
+            visitSentencias(ctx.sentencias(i));
         }
         return null;
     }
@@ -119,12 +126,147 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
     @Override public Valor visitCondicion(SLParser.CondicionContext ctx) {
         return visitExpr(ctx.expr());
     }
-    
-    @Override public T visitSentencias(SLParser.SentenciasContext ctx) { 
+
+    @Override public Valor visitSentencias(SLParser.SentenciasContext ctx) {
         for (SLParser.SentenciaContext sentencia : ctx.sentencia()) {
             visitSentencia(sentencia);
         }
         return null;
     }
-    
+
+    HashMap<String,Object> values = new HashMap<>();
+
+    @Override public Valor visitPotencia(SLParser.PotenciaContext ctx) {
+        Valor valor = new Valor(new TipoNumerico(), false, 0);
+
+        Double base = (Double) visitAcceso(ctx.acceso(0)).valor;
+        Double potencia = 1.0;
+        int i = 1;
+        while (ctx.acceso(i)!=null){
+            potencia *= (Float) visitAcceso(ctx.acceso(i)).valor;
+            i++;
+        }
+        double result = 1.0;
+        double cero = 0.0;
+        if(base > 0 && potencia==0){
+            valor.valor = result;
+        }
+        else if(base == 0 && potencia>=1){
+            valor.valor = cero;
+        }
+        else{
+            i = 1;
+            while (i<potencia){
+                result *= base;
+                i++;
+            }
+            return valor;
+        }
+        return valor;
+    }
+
+    @Override public Valor visitAcceso(SLParser.AccesoContext ctx){
+        visitPrimario(ctx.primario());
+        if(ctx.argumentos() != null){
+            int i = 0;
+            while (ctx.argumentos(i)!= null){
+                List<Valor> argumentos = new ArrayList<>();
+                argumentos = visitaArgumentos(ctx.argumentos(i));
+                i ++;
+            }
+            //LLamar a la funcion
+        } else if (ctx.expr()!= null) {
+            int i = 0;
+            while (ctx.expr(i)!= null){
+                visitExpr(ctx.expr(i));
+                i ++;
+            }
+        }else if (ctx.IDENTIFICADOR() != null){
+            int i = 0;
+            while (ctx.IDENTIFICADOR(i)!=  null) {
+                visitIdentificador(ctx.IDENTIFICADOR(i));
+                i++;
+            }
+        }
+        return null;
+    }
+
+    @Override public Valor visitPrimario(SLParser.PrimarioContext ctx){
+        if (ctx.literal() != null) return visitLiteral(ctx.literal());
+        else if (ctx.IDENTIFICADOR()!= null) {
+            return visitIdentificador(ctx.IDENTIFICADOR());
+        }else {
+            return visitExpr(ctx.expr());
+        }
+
+    }
+
+
+    public List<Valor> visitaArgumentos(SLParser.ArgumentosContext ctx){
+        List<Valor> argumentos = new ArrayList<>();
+        argumentos.add(visitExpr(ctx.expr(0))) ;
+        int i = 1;
+        while (ctx.expr(i)!=null){
+            argumentos.add(visitExpr(ctx.expr(i)));
+            i++;
+        }
+        return  argumentos;
+    }
+
+    @Override public Valor visitRetorno(SLParser.RetornoContext ctx){
+        if (ctx.RETORNA()!= null){
+            return visitExpr(ctx.expr());
+        }else{
+            return null;
+        }
+    }
+
+    @Override public Valor visitExpr_signo(SLParser.Expr_signoContext ctx) {
+
+        if (ctx.OP_SUMA().getText().equals("+")){
+            return visitExpr_signo(ctx.expr_signo());
+        }else if(ctx.OP_SUMA().getText().equals("-")){
+            Valor valor =  visitExpr_signo(ctx.expr_signo());
+            double value = (double) valor.valor;
+            value = - value;
+            valor.valor = value;
+            return valor;
+        }else{
+            return visitPotencia(ctx.potencia());
+        }
+    }
+    public Valor visitIdentificador(TerminalNode ctx){
+        String name = ctx.getText();
+        Valor value;
+        if ((value = (Valor)values.get(name)) == null) {
+            int line = ctx.getSymbol().getLine();
+            int col = ctx.getSymbol().getCharPositionInLine()+1;
+            System.err.printf("<%d:%d> Error semantico, la variable con nombre \"" + name + "\" no fue declarada.\n", line, col);
+            System.exit(-1);
+            return null;
+        } else {
+            return value;
+        }
+    }
+
+    @Override public Valor visitLiteral(SLParser.LiteralContext ctx) {
+
+        if (ctx.LITERAL_NUMERICO() != null){
+            return new Valor(new TipoNumerico(), false, Integer.parseInt(ctx.LITERAL_NUMERICO().getText()));
+        }
+        else if (ctx.LITERAL_CADENA() != null){
+            return new Valor(new TipoCadena(), false, ctx.LITERAL_CADENA().getText());
+        }
+        else if (ctx.LITERAL_LOGICO() != null){
+            return switch (ctx.LITERAL_LOGICO().getText()) {
+                case "TRUE", "SI" -> new Valor(new TipoLogico(), false, true);
+                default -> new Valor(new TipoLogico(), false, false);
+            };
+
+        }
+        else {
+            return visitLiteral_compuesto(ctx.literal_compuesto());
+        }
+    }
+
 }
