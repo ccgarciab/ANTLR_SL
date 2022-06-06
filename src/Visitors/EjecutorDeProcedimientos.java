@@ -98,21 +98,26 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
 
     @Override public Valor visitAsignacion(SLParser.AsignacionContext ctx) {
         String name = ctx.IDENTIFICADOR().getText();
-        Tipo tipo;
+        Valor destino;
         if (this.referenciasLocales.containsKey(name)){
-            tipo = this.referenciasLocales.get(name).tipo;
-        }
-        else if (this.referenciasGlobales.containsKey(name)){
-            tipo = this.referenciasGlobales.get(name).tipo;
+            destino = this.referenciasLocales.get(name);
         }
         else {
-            tipo = null;
-            System.exit(0);
+            destino = this.referenciasGlobales.get(name);
         }
-        Valor valor = visitExpr(ctx.expr());
-        if (!valor.tipo.igualA(tipo)){
-            System.exit(0);
+        if(destino.constante){
+            System.err.println("Intento de asignar valor a constante");
+            System.exit(1);
+            return null;
         }
+        Tipo tipo = destino.tipo;
+        Valor valor = this.visitExpr(ctx.expr());
+        if(!tipo.igualA(valor.tipo)){
+            System.err.println("Asignacion a tipos incompatibles");
+            System.exit(1);
+            return null;
+        }
+        destino.valor = valor.valor;
         return null;
     }
 
@@ -179,8 +184,13 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
             Funcion funcion = this.funciones.get((String)primario.valor);
             funcion.llamar(argumentos);
         } else if (ctx.expr(0) != null) {
+            Integer indice = (Integer) this.visitExpr(ctx.expr(0)).valor;
+            if(primario.tipo.igualA(new TipoCadena())){
+                String caracter = ((String) primario.valor).substring(indice, indice + 1);
+                return new Valor(new TipoCadena(), false, caracter);
+            }
             ArrayList<Valor> vector = (ArrayList<Valor>) primario.valor;
-            return vector.get((Integer) this.visitExpr(ctx.expr(0)).valor);
+            return vector.get(indice);
         }
         return primario;
     }
@@ -296,11 +306,11 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
 
     @Override public Valor visitConjuncion(SLParser.ConjuncionContext ctx) {
         if(ctx.negacion().size()==1){
-            return visitNegacion(ctx.negacion(0));
+            return this.visitNegacion(ctx.negacion(0));
         }
         Boolean bool = true;
         for (int i = 0; i<ctx.negacion().size(); i ++){
-            bool = bool && (Boolean) visitNegacion(ctx.negacion(i)).valor;
+            bool = bool && (Boolean) this.visitNegacion(ctx.negacion(i)).valor;
         }
         return new Valor(new TipoLogico(), false, bool);
     }
@@ -322,6 +332,8 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         Valor val1 = this.visitTermino(ctx.termino(0));
         Valor val2 = this.visitTermino(ctx.termino(1));
         Boolean result = new Boolean(true);
+        Tipo tipoCadena = new TipoCadena();
+        Tipo tipoNumerico = new TipoNumerico();
         switch (ctx.OP_COMPARACION(0).getText()){
             case "==":
                 result = val1.valor.equals(val2.valor);
@@ -330,16 +342,48 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
                 result = !val1.valor.equals(val2.valor);
                 break;
             case "<":
-                result = ((Integer) val1.valor) < ((Integer) val2.valor);
+                if(val1.tipo.igualA(tipoCadena)){
+                    result = ((String) val1.valor).compareTo(((String) val2.valor)) < 0;
+                } else if (val1.tipo.igualA(tipoNumerico)) {
+                    result = ((Integer) val1.valor) < ((Integer) val2.valor);
+                } else {
+                    System.err.println("Comparando valores no ordenados");
+                    System.exit(1);
+                    return null;
+                }
                 break;
             case "<=":
-                result = ((Integer) val1.valor) <= ((Integer) val2.valor);
+                if(val1.tipo.igualA(tipoCadena)){
+                    result = ((String) val1.valor).compareTo(((String) val2.valor)) <= 0;
+                } else if (val1.tipo.igualA(tipoNumerico)) {
+                    result = ((Integer) val1.valor) <= ((Integer) val2.valor);
+                } else {
+                    System.err.println("Comparando valores no ordenados");
+                    System.exit(1);
+                    return null;
+                }
                 break;
             case ">":
-                result = ((Integer) val1.valor) > ((Integer) val2.valor);
+                if(val1.tipo.igualA(tipoCadena)){
+                    result = ((String) val1.valor).compareTo(((String) val2.valor)) > 0;
+                } else if (val1.tipo.igualA(tipoNumerico)) {
+                    result = ((Integer) val1.valor) > ((Integer) val2.valor);
+                } else {
+                    System.err.println("Comparando valores no ordenados");
+                    System.exit(1);
+                    return null;
+                }
                 break;
             case ">=":
-                result = ((Integer) val1.valor) >= ((Integer) val2.valor);
+                if(val1.tipo.igualA(tipoCadena)){
+                    result = ((String) val1.valor).compareTo(((String) val2.valor)) >= 0;
+                } else if (val1.tipo.igualA(tipoNumerico)) {
+                    result = ((Integer) val1.valor) >= ((Integer) val2.valor);
+                } else {
+                    System.err.println("Comparando valores no ordenados");
+                    System.exit(1);
+                    return null;
+                }
                 break;
         }
         for (int i = 1; i < ctx.OP_COMPARACION().size(); ++i){
