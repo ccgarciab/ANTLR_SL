@@ -34,7 +34,6 @@ repetir_hasta: 'repetir' sentencias 'hasta' condicion;
 eval: 'eval' '{' ('caso' condicion sentencias)+ ('sino' sentencias)? '}';
 desde: 'desde' IDENTIFICADOR '=' expr 'hasta' expr ('paso' expr)? '{' sentencias '}';
 asignacion: IDENTIFICADOR '=' expr;
-//
 expr: disyuncion;
 disyuncion: conjuncion ('or' conjuncion)*;
 conjuncion: negacion ('and' negacion)*;
@@ -54,7 +53,8 @@ lista_parametros: parametros (';' parametros)*;
 encabezado: 'subrutina' IDENTIFICADOR '(' lista_parametros? ')';
 retorno: RETORNA expr;
 subrutina: encabezado declaraciones 'inicio' sentencias 'fin';
-funcion: encabezado 'retorna' tipo declaraciones 'inicio' sentencias retorno 'fin';
+funcion: encabezado RETORNA tipo declaraciones 'inicio' sentencias retorno 'fin';
+sentencias: sentencia*;
 
 OP_COMPARACION: '==' | '<>' | '<' | '<=' | '>' | '>=';
 OP_SUMA: '+' | '-';
