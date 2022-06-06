@@ -269,4 +269,20 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         }
     }
 
+
+    @Override public Valor visitLiteral_compuesto(SLParser.Literal_compuestoContext ctx) {
+        ArrayList<Valor> argumentos = new ArrayList<>();
+        for (SLParser.ExprContext expr : ctx.expr()) {
+            argumentos.add(visitExpr(expr));
+        }
+        return new Valor(new TipoVector(argumentos.size(), argumentos.get(0).tipo), false, argumentos);
+    }
+
+
+
+
+
+
+
+
 }
