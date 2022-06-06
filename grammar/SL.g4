@@ -54,7 +54,6 @@ encabezado: 'subrutina' IDENTIFICADOR '(' lista_parametros? ')';
 retorno: RETORNA expr;
 subrutina: encabezado declaraciones 'inicio' sentencias 'fin';
 funcion: encabezado RETORNA tipo declaraciones 'inicio' sentencias retorno 'fin';
-sentencias: sentencia*;
 
 OP_COMPARACION: '==' | '<>' | '<' | '<=' | '>' | '>=';
 OP_SUMA: '+' | '-';
