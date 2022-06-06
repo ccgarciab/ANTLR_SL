@@ -18,6 +18,13 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
     Map<String, Valor> referenciasLocales;
     Map<String, Funcion> funciones;
 
+    public EjecutorDeProcedimientos(Map<String, Valor> referenciasGlobales,
+            Map<String, Valor> referenciasLocales, Map<String, Funcion> funciones) {
+        this.referenciasGlobales = referenciasGlobales;
+        this.referenciasLocales = referenciasLocales;
+        this.funciones = funciones;
+    }
+
     @Override
     public Valor visitSentencia(SLParser.SentenciaContext ctx){
         if(ctx.expr() != null){
@@ -134,8 +141,6 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         return null;
     }
 
-    HashMap<String,Object> values = new HashMap<>();
-
     @Override public Valor visitPotencia(SLParser.PotenciaContext ctx) {
         Valor valor = new Valor(new TipoNumerico(), false, 0);
 
@@ -237,15 +242,16 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
     }
     public Valor visitIdentificador(TerminalNode ctx){
         String name = ctx.getText();
-        Valor value;
-        if ((value = (Valor)values.get(name)) == null) {
+        if(referenciasLocales.containsKey(name)){
+            return referenciasLocales.get(name);
+        } else if (referenciasGlobales.containsKey(name)) {
+            return referenciasGlobales.get(name);
+        }else{
             int line = ctx.getSymbol().getLine();
             int col = ctx.getSymbol().getCharPositionInLine()+1;
             System.err.printf("<%d:%d> Error semantico, la variable con nombre \"" + name + "\" no fue declarada.\n", line, col);
             System.exit(-1);
             return null;
-        } else {
-            return value;
         }
     }
 
@@ -258,11 +264,14 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
             return new Valor(new TipoCadena(), false, ctx.LITERAL_CADENA().getText());
         }
         else if (ctx.LITERAL_LOGICO() != null){
-            return switch (ctx.LITERAL_LOGICO().getText()) {
-                case "TRUE", "SI" -> new Valor(new TipoLogico(), false, true);
-                default -> new Valor(new TipoLogico(), false, false);
-            };
 
+            switch (ctx.LITERAL_LOGICO().getText()) {
+                case "TRUE":
+                case "SI" :
+                    return new Valor(new TipoLogico(), false, true);
+                default:
+                    return new Valor(new TipoLogico(), false, false);
+            }
         }
         else {
             return visitLiteral_compuesto(ctx.literal_compuesto());

@@ -55,6 +55,7 @@ retorno: RETORNA expr;
 subrutina: encabezado declaraciones 'inicio' sentencias 'fin';
 funcion: encabezado RETORNA tipo declaraciones 'inicio' sentencias retorno 'fin';
 
+RETORNA: 'retorna';
 OP_COMPARACION: '==' | '<>' | '<' | '<=' | '>' | '>=';
 OP_SUMA: '+' | '-';
 //TODO cambiar por literal numero
@@ -67,4 +68,4 @@ IDENTIFICADOR: [_A-Za-z][_A-Za-z0-9]*;
 COMENTARIO_MULTILINEA: '/*' .*? '*/' -> skip;
 COMENTARIO_LINEA: '//' .*? [\n\r] -> skip;
 ESPACIO: [ \t\r\n]+ -> skip;
-RETORNA: 'retorna';
+

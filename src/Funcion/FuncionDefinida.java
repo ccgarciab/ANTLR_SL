@@ -3,6 +3,7 @@ package Funcion;
 import Gen.SLParser;
 import Tipo.Tipo;
 import Valor.Valor;
+import Visitors.*;
 
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class FuncionDefinida implements Funcion {
             }
         }
 
-        //Visitor.EjecutorDeSentencias ejecutor = new Visitor.EjecutorDeSentencias();
+        EjecutorDeProcedimientos ejecutor = new EjecutorDeProcedimientos(this.referenciasGlobales, this.referenciasLocales, this.funciones);
 
         return null;
     }

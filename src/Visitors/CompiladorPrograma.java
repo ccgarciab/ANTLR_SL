@@ -16,20 +16,21 @@ import java.util.Map;
 
 public class CompiladorPrograma extends SLBaseVisitor<Void> {
 
-    Map<String, Tipo> tiposGlobales;
-    Map<String, Valor> referenciasGlobales;
-    EjecutorDeProcedimientos ejecutor;
+    public Map<String, Tipo> tiposGlobales;
+    public Map<String, Valor> referenciasGlobales;
+    public EjecutorDeProcedimientos ejecutor;
+    public Map<String, Funcion> funciones = new HashMap<>();
+
 
     public CompiladorPrograma(){
         this.referenciasGlobales = new HashMap<>();
         this.tiposGlobales = new HashMap<>();
-        this.ejecutor = new EjecutorDeProcedimientos();
+        this.ejecutor = new EjecutorDeProcedimientos(this.referenciasGlobales, this.referenciasGlobales, new HashMap<>());
     }
 
     @Override
     public Void visitInicial(SLParser.InicialContext ctx) {
 
-        Map<String, Funcion> funciones = new HashMap<>();
         this.registrarPrincipal(ctx.programa().programa_principal(), funciones);
         return null;
     }

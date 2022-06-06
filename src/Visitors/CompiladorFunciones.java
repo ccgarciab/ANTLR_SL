@@ -21,11 +21,11 @@ public class CompiladorFunciones extends SLBaseVisitor<Map<String, Funcion>>{
     Map<String, Valor> referenciasGlobales;
     EjecutorDeProcedimientos ejecutor;
 
-    public CompiladorFunciones(Map<String, Tipo> tiposGlobales, Map<String, Valor> referenciasGlobales){
+    public CompiladorFunciones(Map<String, Tipo> tiposGlobales, Map<String, Valor> referenciasGlobales, Map<String, Funcion> funciones){
         this.referenciasGlobales = referenciasGlobales;
         this.tiposGlobales = tiposGlobales;
-        this.ejecutor = new EjecutorDeProcedimientos();
-        this.funciones = new HashMap<>();
+        this.funciones = funciones;
+        this.ejecutor = new EjecutorDeProcedimientos(referenciasGlobales, new HashMap<>(), this.funciones );
     }
 
     @Override
@@ -87,7 +87,9 @@ public class CompiladorFunciones extends SLBaseVisitor<Map<String, Funcion>>{
     public void procesarDeclaraciones(SLParser.DeclaracionesContext ctx, Map<String, Valor> referenciasLocales) {
 
         Map<String, Tipo> tiposLocales = new HashMap<>();
-
+        if(ctx == null || ctx.children == null){
+            return;
+        }
         for(ParseTree child: ctx.children){
             if(child instanceof SLParser.TiposContext){
                 SLParser.TiposContext tiposCtx = (SLParser.TiposContext) child;
@@ -194,6 +196,9 @@ public class CompiladorFunciones extends SLBaseVisitor<Map<String, Funcion>>{
 
     public List<Params> visitarParamsList(SLParser.Lista_parametrosContext ctx,  Map<String, Tipo> tiposLocales, Map<String, Valor> referenciasLocales){
         ArrayList<Params> listaParams = new ArrayList<>();
+        if (ctx == null){
+            return listaParams;
+        }
         for(SLParser.ParametrosContext paramCtx: ctx.parametros()){
             listaParams.add(this.visitarParams(paramCtx, tiposLocales, referenciasLocales));
         }
