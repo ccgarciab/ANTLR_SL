@@ -68,7 +68,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
 
         inicio = (Integer) this.visitExpr(ctx.expr(0)).valor;
         limite = (Integer)this.visitExpr(ctx.expr(1)).valor;
-        if (ctx.expr(2) != null && this.visitExpr(ctx.expr(2)) != null){
+        if (ctx.expr(2) != null){
             paso = (Integer)this.visitExpr(ctx.expr(2)).valor;
         }else{
             paso =  1;
