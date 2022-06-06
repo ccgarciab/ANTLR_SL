@@ -40,7 +40,7 @@ conjuncion: negacion ('and' negacion)*;
 negacion: 'not' negacion | comparacion;
 comparacion: termino (OP_COMPARACION termino)*;
 termino: factor (OP_SUMA factor)*;
-factor: expr_signo (('*' | '/' | '%') expr_signo)*;
+factor: expr_signo (OP_MUL expr_signo)*;
 expr_signo: OP_SUMA expr_signo | potencia;
 potencia: acceso ('^' acceso)*;
 acceso: primario ('(' argumentos? ')' | '[' expr ']')*;
@@ -68,4 +68,5 @@ IDENTIFICADOR: [_A-Za-z][_A-Za-z0-9]*;
 COMENTARIO_MULTILINEA: '/*' .*? '*/' -> skip;
 COMENTARIO_LINEA: '//' .*? [\n\r] -> skip;
 ESPACIO: [ \t\r\n]+ -> skip;
+OP_MUL: '*' | '/' | '%';
 
