@@ -172,7 +172,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
         if(ctx.argumentos(0) != null){
             List<Valor> argumentos = visitaArgumentos(ctx.argumentos(0));
             Funcion funcion = this.funciones.get((String)primario.valor);
-            funcion.llamar(argumentos);
+            return funcion.llamar(argumentos);
         } else if (ctx.expr(0) != null) {
             Double indiceFlotante = (Double) this.visitExpr(ctx.expr(0)).valor;
             if(indiceFlotante % 1 != 0){
