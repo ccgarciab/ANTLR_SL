@@ -1,13 +1,16 @@
 package Tipo;
 
+import Valor.Valor;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class TipoMatriz implements Tipo {
 
-    List<Integer> dimensiones;
+    List<Double> dimensiones;
     Tipo tipoInterno;
 
-    public TipoMatriz(List<Integer> dimensiones, Tipo tipoInterno){
+    public TipoMatriz(List<Double> dimensiones, Tipo tipoInterno){
         this.dimensiones = dimensiones;
         this.tipoInterno = tipoInterno;
     }
@@ -30,5 +33,11 @@ public class TipoMatriz implements Tipo {
         }
 
         return o.tipoInterno.igualA(this.tipoInterno);
+    }
+
+    public Valor valorPorDefecto(boolean constante){
+
+        ArrayList<Valor> matriz = new ArrayList<>();
+        return new Valor(this, constante, matriz);
     }
 }

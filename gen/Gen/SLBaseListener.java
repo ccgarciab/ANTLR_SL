@@ -220,18 +220,6 @@ public class SLBaseListener implements SLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTipo_registro(SLParser.Tipo_registroContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTipo_registro(SLParser.Tipo_registroContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterTipo_vector(SLParser.Tipo_vectorContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -292,6 +280,18 @@ public class SLBaseListener implements SLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDimension_variable(SLParser.Dimension_variableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDimension_variable(SLParser.Dimension_variableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLiteral(SLParser.LiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -335,6 +335,18 @@ public class SLBaseListener implements SLListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSino_si(SLParser.Sino_siContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSentencias(SLParser.SentenciasContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSentencias(SLParser.SentenciasContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

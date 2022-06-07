@@ -178,16 +178,6 @@ public interface SLListener extends ParseTreeListener {
 	 */
 	void exitTipo_escalar(SLParser.Tipo_escalarContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SLParser#tipo_registro}.
-	 * @param ctx the parse tree
-	 */
-	void enterTipo_registro(SLParser.Tipo_registroContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SLParser#tipo_registro}.
-	 * @param ctx the parse tree
-	 */
-	void exitTipo_registro(SLParser.Tipo_registroContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link SLParser#tipo_vector}.
 	 * @param ctx the parse tree
 	 */
@@ -238,6 +228,16 @@ public interface SLListener extends ParseTreeListener {
 	 */
 	void exitDimension(SLParser.DimensionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SLParser#dimension_variable}.
+	 * @param ctx the parse tree
+	 */
+	void enterDimension_variable(SLParser.Dimension_variableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#dimension_variable}.
+	 * @param ctx the parse tree
+	 */
+	void exitDimension_variable(SLParser.Dimension_variableContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SLParser#literal}.
 	 * @param ctx the parse tree
 	 */
@@ -277,6 +277,16 @@ public interface SLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSino_si(SLParser.Sino_siContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SLParser#sentencias}.
+	 * @param ctx the parse tree
+	 */
+	void enterSentencias(SLParser.SentenciasContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SLParser#sentencias}.
+	 * @param ctx the parse tree
+	 */
+	void exitSentencias(SLParser.SentenciasContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SLParser#condicion}.
 	 * @param ctx the parse tree

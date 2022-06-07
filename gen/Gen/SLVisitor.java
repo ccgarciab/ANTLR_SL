@@ -113,12 +113,6 @@ public interface SLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTipo_escalar(SLParser.Tipo_escalarContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SLParser#tipo_registro}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTipo_registro(SLParser.Tipo_registroContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link SLParser#tipo_vector}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -149,6 +143,12 @@ public interface SLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDimension(SLParser.DimensionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SLParser#dimension_variable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDimension_variable(SLParser.Dimension_variableContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SLParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -172,6 +172,12 @@ public interface SLVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSino_si(SLParser.Sino_siContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SLParser#sentencias}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSentencias(SLParser.SentenciasContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SLParser#condicion}.
 	 * @param ctx the parse tree
