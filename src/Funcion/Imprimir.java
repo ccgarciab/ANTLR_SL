@@ -26,6 +26,7 @@ public class Imprimir implements Funcion{
             }
             System.out.print(argumento.valor);
         }
+        System.out.print('\n');
         return null;
     }
 }
