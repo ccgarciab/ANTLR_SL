@@ -15,7 +15,7 @@ public class Ascii implements Funcion{
             return null;
         }
         Double x = (Double) argumentos.get(0).valor;
-        if(x < 0 || x > 127 ||  x % 1 != 0){
+        if(x < 0 || x > 255 ||  x % 1 != 0){
             System.err.println("Argumento debe ser entero entre 0 y 127");
             System.exit(1);
             return null;
