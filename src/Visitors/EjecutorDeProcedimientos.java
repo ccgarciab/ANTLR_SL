@@ -59,7 +59,7 @@ public class EjecutorDeProcedimientos extends SLBaseVisitor<Valor> {
             for (SLParser.SentenciaContext sentencia : ctx.sentencias().sentencia()) {
                 visitSentencia(sentencia);
             }
-        } while ((Boolean) visitCondicion(ctx.condicion()).valor);
+        } while (! (Boolean) visitCondicion(ctx.condicion()).valor);
         return null;
     }
     @Override public Valor visitDesde(SLParser.DesdeContext ctx) {
