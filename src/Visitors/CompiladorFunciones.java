@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class CompiladorFunciones extends SLBaseVisitor<Map<String, Funcion>>{
 
@@ -147,7 +146,7 @@ public class CompiladorFunciones extends SLBaseVisitor<Map<String, Funcion>>{
             } else {
                 dimension = -1.0;
             }
-            return new TipoVector((double) dimension, tipoEscalar);
+            return new TipoVector(dimension, tipoEscalar);
         } else if (ctx.tipo_matriz() != null) {
             SLParser.Tipo_matrizContext matCtx = ctx.tipo_matriz();
             SLParser.Tipo_escalarContext escalarCtx = matCtx.tipo_escalar();
@@ -174,8 +173,7 @@ public class CompiladorFunciones extends SLBaseVisitor<Map<String, Funcion>>{
                     }
                 }
             }
-            List<Double> dimsDouble = dimensiones.stream().map(i -> (double) i).collect(Collectors.toList());
-            return new TipoMatriz(dimsDouble, tipoEscalar);
+            return new TipoMatriz(dimensiones, tipoEscalar);
         } else {
             String id = ctx.IDENTIFICADOR().getText();
             return this.getTipo(id, tiposLocales);
@@ -234,7 +232,7 @@ public class CompiladorFunciones extends SLBaseVisitor<Map<String, Funcion>>{
         return tiposGlobales.get(id);
     }
 
-    class Params {
+    static class Params {
         List<String> nombres;
         Tipo tipo;
 
@@ -244,7 +242,7 @@ public class CompiladorFunciones extends SLBaseVisitor<Map<String, Funcion>>{
         }
     }
 
-    class Encabezado {
+    static class Encabezado {
         String nombre;
         List<Params> listaParams;
 

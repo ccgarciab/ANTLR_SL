@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface Funcion {
 
-    public abstract Valor llamar(List<Valor> argumentos);
+    Valor llamar(List<Valor> argumentos);
 }
