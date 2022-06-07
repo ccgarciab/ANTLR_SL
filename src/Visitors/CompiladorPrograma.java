@@ -54,6 +54,7 @@ public class CompiladorPrograma extends SLBaseVisitor<Void> {
         funciones.put("imprimir", new Imprimir());
         funciones.put("leer", new Leer());
         funciones.put("ascii", new Ascii());
+        funciones.put("int", new Int());
     }
 
     public void procesarDeclaraciones(SLParser.DeclaracionesContext ctx) {
